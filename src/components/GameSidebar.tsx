@@ -33,7 +33,7 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
       title: 'About Quest',
       description: 'Learn about the player\'s background and achievements',
       tips: ['Click achievement cards for XP', 'Hover over stats for animations', 'Complete your profile exploration'],
-      icon: <Trophy className="text-neon-teal" size={18} />
+      icon: <Trophy className="text-neon-purple" size={18} />
     },
     skills: {
       title: 'Skills Dashboard', 
@@ -51,7 +51,7 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
       title: 'Adventure Timeline',
       description: 'Journey through the developer\'s career path',
       tips: ['Scroll to animate connections', 'Each milestone rewards XP', 'Watch for interactive elements'],
-      icon: <Clock className="text-neon-purple" size={18} />
+      icon: <Clock className="text-neon-teal" size={18} />
     },
     contact: {
       title: 'Contact Portal',
@@ -82,7 +82,7 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
         opacity: 1,
         width: isExpanded ? 320 : 60
       }}
-      className="fixed right-4 top-20 bg-card/90 dark:bg-card/80 backdrop-blur-2xl rounded-xl border border-border shadow-2xl z-40 max-h-[calc(100vh-120px)] overflow-hidden"
+      className="fixed right-4 top-20 bg-slate-900/90 dark:bg-gray-900/80 backdrop-blur-2xl rounded-xl border border-neon-purple/30 shadow-2xl z-40 max-h-[calc(100vh-120px)] overflow-hidden"
       style={{
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
@@ -91,7 +91,7 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
       {/* Collapse/Expand Toggle */}
       <motion.button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="absolute top-4 right-4 p-2 rounded-lg bg-gradient-to-r from-neon-blue/20 to-neon-teal/20 text-neon-teal hover:scale-110 transition-transform z-10"
+        className="absolute top-4 right-4 p-2 rounded-lg bg-gradient-to-r from-neon-purple/20 to-neon-teal/20 text-neon-teal hover:scale-110 transition-transform z-10"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
@@ -108,25 +108,25 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
             className="overflow-y-auto max-h-[calc(100vh-120px)]"
           >
             {/* Header */}
-            <div className="p-4 border-b border-border">
+            <div className="p-4 border-b border-neon-purple/30">
               <div className="flex items-center gap-3 mb-2 pr-8">
                 {currentDetails.icon}
-                <h3 className="text-lg font-bold text-foreground">{currentDetails.title}</h3>
+                <h3 className="text-lg font-bold text-white">{currentDetails.title}</h3>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-300">{currentDetails.description}</p>
+              <p className="text-sm text-gray-300">{currentDetails.description}</p>
             </div>
 
             {/* Current XP */}
-            <div className="p-4 border-b border-border">
+            <div className="p-4 border-b border-neon-purple/30">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-foreground">Level {getLevel(totalPoints)}</span>
-                <span className="text-lg font-bold bg-gradient-to-r from-neon-green to-neon-teal bg-clip-text text-transparent">
+                <span className="text-sm font-medium text-white">Level {getLevel(totalPoints)}</span>
+                <span className="text-lg font-bold bg-gradient-to-r from-neon-purple to-neon-teal bg-clip-text text-transparent">
                   {totalPoints.toLocaleString()} XP
                 </span>
               </div>
-              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-2">
+              <div className="w-full bg-gray-700 rounded-full h-3 mb-2">
                 <motion.div
-                  className="bg-gradient-to-r from-neon-green to-neon-teal h-full rounded-full relative overflow-hidden"
+                  className="bg-gradient-to-r from-neon-purple to-neon-teal h-full rounded-full relative overflow-hidden"
                   initial={{ width: '0%' }}
                   animate={{ width: `${getProgressInLevel(totalPoints)}%` }}
                   transition={{ duration: 1 }}
@@ -134,14 +134,14 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse" />
                 </motion.div>
               </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-gray-400">
                 Next level: {((getLevel(totalPoints)) * 1000).toLocaleString()} XP
               </p>
             </div>
 
             {/* Tips */}
-            <div className="p-4 border-b border-border">
-              <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+            <div className="p-4 border-b border-neon-purple/30">
+              <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
                 💡 Pro Tips
               </h4>
               <ul className="space-y-2">
@@ -151,7 +151,7 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="text-xs text-gray-600 dark:text-gray-300 flex items-start gap-2"
+                    className="text-xs text-gray-300 flex items-start gap-2"
                   >
                     <span className="text-neon-teal">•</span>
                     {tip}
@@ -162,7 +162,7 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
 
             {/* Achievements */}
             <div className="p-4">
-              <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+              <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
                 🏆 Achievements
               </h4>
               <div className="space-y-2">
@@ -171,8 +171,8 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
                     key={achievement.name}
                     className={`flex items-center justify-between p-3 rounded-lg transition-all duration-300 ${
                       achievement.unlocked 
-                        ? 'bg-gradient-to-r from-neon-green/20 to-neon-teal/20 border border-neon-teal/40' 
-                        : 'bg-gray-100/50 dark:bg-gray-800/50 border border-gray-300/30 dark:border-gray-600/30'
+                        ? 'bg-gradient-to-r from-neon-purple/20 to-neon-teal/20 border border-neon-teal/40' 
+                        : 'bg-gray-800/50 border border-gray-600/30'
                     }`}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ 
@@ -183,17 +183,17 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
                     whileHover={{ scale: achievement.unlocked ? 1.05 : 1.02 }}
                   >
                     <div className="flex items-center gap-3">
-                      <span className={`text-lg ${achievement.unlocked ? 'text-neon-teal' : 'text-gray-400'}`}>
+                      <span className={`text-lg ${achievement.unlocked ? 'text-neon-teal' : 'text-gray-500'}`}>
                         {achievement.unlocked ? '🏆' : '🔒'}
                       </span>
                       <div>
                         <span className={`text-xs font-medium block ${
-                          achievement.unlocked ? 'text-foreground' : 'text-gray-500'
+                          achievement.unlocked ? 'text-white' : 'text-gray-500'
                         }`}>
                           {achievement.name}
                         </span>
                         <span className={`text-xs ${
-                          achievement.unlocked ? 'text-neon-teal font-bold' : 'text-gray-400'
+                          achievement.unlocked ? 'text-neon-teal font-bold' : 'text-gray-500'
                         }`}>
                           +{achievement.points} XP
                         </span>
@@ -226,18 +226,18 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
               <div className="text-xs font-bold text-neon-teal mt-2">
                 {totalPoints.toLocaleString()}
               </div>
-              <div className="text-xs text-gray-500">XP</div>
+              <div className="text-xs text-gray-400">XP</div>
             </div>
             
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+            <div className="w-full bg-gray-700 rounded-full h-2">
               <motion.div
-                className="bg-gradient-to-r from-neon-green to-neon-teal h-full rounded-full"
+                className="bg-gradient-to-r from-neon-purple to-neon-teal h-full rounded-full"
                 animate={{ width: `${getProgressInLevel(totalPoints)}%` }}
                 transition={{ duration: 1 }}
               />
             </div>
             
-            <div className="text-xs text-center text-gray-500">
+            <div className="text-xs text-center text-gray-400">
               Lv.{getLevel(totalPoints)}
             </div>
           </motion.div>

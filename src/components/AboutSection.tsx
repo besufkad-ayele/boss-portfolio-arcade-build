@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Star, Target, Award, CheckCircle } from 'lucide-react';
@@ -46,7 +47,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/10 dark:from-dark-primary dark:via-green-900/20 dark:to-green-800/30 section-padding">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 dark:from-gray-900 dark:via-purple-950 dark:to-indigo-950 section-padding">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -54,11 +55,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
             className="text-center mb-16"
           >
             <h1 className="text-5xl md:text-7xl font-game font-bold mb-6">
-              <span className="bg-gradient-to-r from-neon-blue to-neon-teal bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-neon-purple via-neon-pink to-neon-teal bg-clip-text text-transparent">
                 About Quest
               </span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Discover the journey of First_name Last_name, a passionate developer on a mission to create amazing digital experiences.
             </p>
           </motion.div>
@@ -70,34 +71,34 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
               transition={{ delay: 0.2 }}
               className="space-y-6"
             >
-              <h2 className="text-3xl font-bold text-foreground mb-4">The Developer's Story</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <h2 className="text-3xl font-bold text-white mb-4">The Developer's Story</h2>
+              <p className="text-lg text-gray-300 leading-relaxed">
                 Welcome to my digital realm! I'm First_name Last_name, a passionate full-stack developer 
                 who transforms ideas into interactive experiences. With expertise in modern web technologies 
                 and a love for clean, efficient code.
               </p>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="text-lg text-gray-300 leading-relaxed">
                 My journey in tech started with curiosity and evolved into mastery. I specialize in 
                 React, TypeScript, Node.js, and modern web frameworks, always staying ahead of the curve 
                 with the latest technologies and best practices. I'm the Boss at what I do.
               </p>
               
-              <div className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border">
-                <h3 className="text-xl font-semibold text-foreground mb-4">Core Values</h3>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-neon-purple/30">
+                <h3 className="text-xl font-semibold text-white mb-4">Core Values</h3>
                 <ul className="space-y-2">
-                  <li className="flex items-center gap-2 text-muted-foreground">
+                  <li className="flex items-center gap-2 text-gray-300">
                     <CheckCircle size={16} className="text-neon-teal" />
                     Quality code and best practices
                   </li>
-                  <li className="flex items-center gap-2 text-muted-foreground">
+                  <li className="flex items-center gap-2 text-gray-300">
                     <CheckCircle size={16} className="text-neon-teal" />
                     User-centered design approach
                   </li>
-                  <li className="flex items-center gap-2 text-muted-foreground">
+                  <li className="flex items-center gap-2 text-gray-300">
                     <CheckCircle size={16} className="text-neon-teal" />
                     Continuous learning and growth
                   </li>
-                  <li className="flex items-center gap-2 text-muted-foreground">
+                  <li className="flex items-center gap-2 text-gray-300">
                     <CheckCircle size={16} className="text-neon-teal" />
                     Collaborative team spirit
                   </li>
@@ -111,23 +112,23 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
               transition={{ delay: 0.4 }}
               className="relative"
             >
-              <div className="bg-gradient-to-br from-neon-blue/20 to-neon-teal/20 rounded-2xl p-8 backdrop-blur-sm border border-neon-teal/30">
-                <h3 className="text-2xl font-bold text-foreground mb-6">Developer Stats</h3>
+              <div className="bg-gradient-to-br from-neon-purple/20 to-neon-pink/20 rounded-2xl p-8 backdrop-blur-sm border border-neon-purple/30">
+                <h3 className="text-2xl font-bold text-white mb-6">Developer Stats</h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Projects Completed</span>
+                    <span className="text-gray-300">Projects Completed</span>
                     <span className="text-2xl font-bold text-neon-teal">100+</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Years Experience</span>
+                    <span className="text-gray-300">Years Experience</span>
                     <span className="text-2xl font-bold text-neon-blue">5+</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Technologies Mastered</span>
+                    <span className="text-gray-300">Technologies Mastered</span>
                     <span className="text-2xl font-bold text-neon-green">20+</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Coffee Consumed</span>
+                    <span className="text-gray-300">Coffee Consumed</span>
                     <span className="text-2xl font-bold text-neon-pink">∞</span>
                   </div>
                 </div>
@@ -140,16 +141,16 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            <h2 className="text-3xl font-bold text-center text-foreground mb-12">Achievements Unlocked</h2>
+            <h2 className="text-3xl font-bold text-center text-white mb-12">Achievements Unlocked</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {achievements.map((achievement, index) => (
                 <motion.div
                   key={index}
                   onClick={() => handleAchievementClick(index, achievement)}
-                  className={`relative bg-card/50 backdrop-blur-sm rounded-xl p-6 border cursor-pointer transition-all duration-300 ${
+                  className={`relative bg-white/10 backdrop-blur-sm rounded-xl p-6 border cursor-pointer transition-all duration-300 ${
                     clickedAchievements.has(index) 
-                      ? 'border-neon-teal bg-gradient-to-br from-neon-teal/20 to-neon-blue/20 scale-105' 
-                      : 'border-border hover:border-neon-teal/50 hover:scale-105'
+                      ? 'border-neon-teal bg-gradient-to-br from-neon-teal/20 to-neon-purple/20 scale-105' 
+                      : 'border-neon-purple/30 hover:border-neon-teal/50 hover:scale-105'
                   }`}
                   whileHover={{ y: -5 }}
                   whileTap={{ scale: 0.98 }}
@@ -163,8 +164,8 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
                     <div className="mb-4 flex justify-center">
                       {achievement.icon}
                     </div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">{achievement.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-3">{achievement.description}</p>
+                    <h3 className="text-lg font-semibold text-white mb-2">{achievement.title}</h3>
+                    <p className="text-sm text-gray-300 mb-3">{achievement.description}</p>
                     <div className="text-xs font-bold text-neon-teal">+{achievement.points} XP</div>
                   </div>
                 </motion.div>
