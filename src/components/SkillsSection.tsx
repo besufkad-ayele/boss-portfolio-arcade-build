@@ -1,10 +1,9 @@
-
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const SkillsSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.3 });
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   const skills = [
     { name: 'Flutter', level: 95, icon: '📱', color: 'from-blue-500 to-cyan-500' },

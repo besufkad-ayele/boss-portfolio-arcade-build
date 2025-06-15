@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion';
 
 const ContactSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.3 });
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
   
   const [formData, setFormData] = useState({
     name: '',
@@ -41,6 +41,28 @@ const ContactSection = () => {
       setTimeout(() => setSubmitted(false), 5000);
     }, 2000);
   };
+
+  const handleSocialClick = (socialName: string) => {
+    const xpNotification = document.createElement('div');
+    xpNotification.innerHTML = `+5 XP - ${socialName} Visited!`;
+    xpNotification.className = 'fixed top-20 right-4 bg-gradient-to-r from-neon-purple to-neon-pink text-white px-4 py-2 rounded-lg font-bold text-sm z-50 animate-bounce';
+    document.body.appendChild(xpNotification);
+    setTimeout(() => document.body.removeChild(xpNotification), 2000);
+  };
+
+  const showXPNotification = () => {
+    const notification = document.createElement('div');
+    notification.innerHTML = '+20 XP - Contact Section Reached!';
+    notification.className = 'fixed top-20 right-4 bg-gradient-to-r from-neon-green to-neon-teal text-white px-4 py-2 rounded-lg font-bold text-sm z-50 animate-bounce';
+    document.body.appendChild(notification);
+    setTimeout(() => document.body.removeChild(notification), 2000);
+  };
+
+  React.useEffect(() => {
+    if (isInView) {
+      showXPNotification();
+    }
+  }, [isInView]);
 
   const socialLinks = [
     {
@@ -101,13 +123,17 @@ const ContactSection = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
+          {/* Contact Form - Zoom instead of tilt */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="skill-card bg-gradient-to-br from-gray-50 to-blue-50 dark:from-dark-secondary dark:to-dark-accent border-2 border-neon-teal/20">
+            <motion.div
+              className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-dark-secondary dark:to-dark-accent border-2 border-neon-teal/20 rounded-xl p-6"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.2 }}
+            >
               <h3 className="text-2xl font-bold mb-6 text-foreground flex items-center">
                 <span className="mr-3">🎮</span>
                 Send Message
@@ -127,7 +153,7 @@ const ContactSection = () => {
                     required
                     className="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-dark-primary text-foreground focus:border-neon-teal focus:outline-none transition-colors"
                     placeholder="Enter your name"
-                    whileFocus={{ scale: 1.02 }}
+                    whileFocus={{ scale: 1.01 }}
                   />
                 </div>
 
@@ -144,7 +170,7 @@ const ContactSection = () => {
                     required
                     className="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-dark-primary text-foreground focus:border-neon-teal focus:outline-none transition-colors"
                     placeholder="your.email@example.com"
-                    whileFocus={{ scale: 1.02 }}
+                    whileFocus={{ scale: 1.01 }}
                   />
                 </div>
 
@@ -161,7 +187,7 @@ const ContactSection = () => {
                     rows={5}
                     className="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-dark-primary text-foreground focus:border-neon-teal focus:outline-none transition-colors resize-none"
                     placeholder="Tell me about your project idea..."
-                    whileFocus={{ scale: 1.02 }}
+                    whileFocus={{ scale: 1.01 }}
                   />
                 </div>
 
@@ -187,7 +213,7 @@ const ContactSection = () => {
                   )}
                 </motion.button>
               </form>
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Contact Info & Social Links */}
@@ -222,7 +248,7 @@ const ContactSection = () => {
               </div>
             </div>
 
-            {/* Social Links */}
+            {/* Social Links with XP notifications */}
             <div className="skill-card">
               <h3 className="text-2xl font-bold mb-6 text-foreground flex items-center">
                 <span className="mr-3">🌐</span>
@@ -233,6 +259,7 @@ const ContactSection = () => {
                   <motion.a
                     key={social.name}
                     href={social.url}
+                    onClick={() => handleSocialClick(social.name)}
                     className={`p-4 rounded-xl border-2 border-gray-200 dark:border-gray-600 text-center transition-all duration-300 group ${social.color}`}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={isInView ? { opacity: 1, scale: 1 } : {}}

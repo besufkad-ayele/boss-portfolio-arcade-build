@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 
 const AboutSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.3 });
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   const achievements = [
     { icon: '🎯', title: 'Flutter Master', desc: 'Cross-platform expert' },

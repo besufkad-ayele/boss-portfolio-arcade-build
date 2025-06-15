@@ -1,10 +1,9 @@
-
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const ProjectsSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.2 });
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   const projects = [
     {
