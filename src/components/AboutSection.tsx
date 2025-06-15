@@ -1,10 +1,21 @@
+
 import React from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 
-const AboutSection = () => {
+interface AboutSectionProps {
+  onEarnPoints: (points: number, message: string) => void;
+}
+
+const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
+
+  React.useEffect(() => {
+    if (isInView) {
+      onEarnPoints(50, 'About Quest Discovered!');
+    }
+  }, [isInView, onEarnPoints]);
 
   const achievements = [
     { icon: '🎯', title: 'Flutter Master', desc: 'Cross-platform expert' },
@@ -13,8 +24,12 @@ const AboutSection = () => {
     { icon: '🏆', title: 'Project Hero', desc: 'Delivery champion' },
   ];
 
+  const handleAchievementClick = (title: string) => {
+    onEarnPoints(10, `Achievement Viewed: ${title}`);
+  };
+
   return (
-    <section ref={ref} className="section-padding bg-white dark:bg-dark-primary">
+    <section ref={ref} className="section-padding bg-white dark:bg-green-900/10">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -24,7 +39,7 @@ const AboutSection = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-neon-pink to-neon-blue bg-clip-text text-transparent">
-              About Boss
+              About Quest
             </span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-neon-pink to-neon-blue mx-auto rounded-full" />
@@ -60,7 +75,7 @@ const AboutSection = () => {
               </div>
 
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                Hey there! I'm <strong className="text-neon-blue">Besufkad "Boss" Ayele</strong>, 
+                Hey there! I'm <strong className="text-neon-blue">First_name Last_name</strong>, 
                 a passionate software engineer from the beautiful highlands of Ethiopia 🇪🇹. 
                 With a love for crafting elegant code and building amazing user experiences, 
                 I specialize in creating cross-platform mobile applications with Flutter and 
@@ -71,7 +86,8 @@ const AboutSection = () => {
                 When I'm not coding, you'll find me diving deep into the Bible for wisdom, 
                 exploring new music, or learning about the latest tech innovations. I believe 
                 in writing clean, maintainable code and creating solutions that make a real 
-                difference in people's lives.
+                difference in people's lives. <strong className="text-neon-teal">Boss</strong> 
+                is not just a nickname - it's a mindset!
               </p>
 
               <motion.div
@@ -98,7 +114,7 @@ const AboutSection = () => {
             {achievements.map((achievement, index) => (
               <motion.div
                 key={achievement.title}
-                className="skill-card text-center"
+                className="skill-card text-center cursor-pointer"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ 
@@ -111,6 +127,7 @@ const AboutSection = () => {
                   y: -5,
                   boxShadow: "0 10px 25px rgba(78, 205, 196, 0.3)"
                 }}
+                onClick={() => handleAchievementClick(achievement.title)}
               >
                 <div className="text-4xl mb-3">{achievement.icon}</div>
                 <h3 className="font-bold text-lg mb-2 text-foreground">
@@ -139,8 +156,9 @@ const AboutSection = () => {
             ].map((fact, index) => (
               <motion.div
                 key={index}
-                className="text-center"
+                className="text-center cursor-pointer"
                 whileHover={{ scale: 1.1 }}
+                onClick={() => onEarnPoints(5, 'Fun Fact Discovered!')}
               >
                 <div className="text-3xl mb-2">{fact.emoji}</div>
                 <p className="text-gray-600 dark:text-gray-400">{fact.text}</p>

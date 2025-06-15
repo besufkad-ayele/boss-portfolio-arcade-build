@@ -40,32 +40,32 @@
   }
 
   .dark {
-    --background: 26 26 46;
+    --background: 15 23 42;
     --foreground: 245 245 245;
 
-    --card: 22 33 62;
+    --card: 17 24 39;
     --card-foreground: 245 245 245;
 
-    --popover: 22 33 62;
+    --popover: 17 24 39;
     --popover-foreground: 245 245 245;
 
     --primary: 78 205 196;
-    --primary-foreground: 26 26 46;
+    --primary-foreground: 15 23 42;
 
-    --secondary: 15 52 96;
+    --secondary: 21 128 61;
     --secondary-foreground: 245 245 245;
 
-    --muted: 15 52 96;
+    --muted: 21 128 61;
     --muted-foreground: 163 163 163;
 
     --accent: 255 107 107;
-    --accent-foreground: 26 26 46;
+    --accent-foreground: 15 23 42;
 
     --destructive: 127 29 29;
     --destructive-foreground: 248 250 252;
 
-    --border: 15 52 96;
-    --input: 15 52 96;
+    --border: 21 128 61;
+    --input: 21 128 61;
     --ring: 78 205 196;
   }
 }
@@ -182,28 +182,50 @@
   .container-custom {
     @apply max-w-7xl mx-auto;
   }
-}
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
-}
+  /* Enhanced scrollbar for dark mode */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
 
-::-webkit-scrollbar-track {
-  background: hsl(var(--background));
-}
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
 
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #4ECDC4, #45B7D1);
-  border-radius: 4px;
-}
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #4ECDC4, #45B7D1);
+    border-radius: 4px;
+  }
 
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #45B7D1, #4ECDC4);
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #45B7D1, #4ECDC4);
+  }
 }
 
 /* Selection styling */
 ::selection {
   background: rgba(78, 205, 196, 0.3);
   color: inherit;
+}
+
+/* Dark mode specific enhancements */
+.dark ::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #15803d, #4ECDC4);
+}
+
+/* Glassmorphism effects */
+.glass-effect {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-effect {
+  background: rgba(21, 128, 61, 0.1);
+  border: 1px solid rgba(21, 128, 61, 0.2);
 }

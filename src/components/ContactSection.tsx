@@ -1,8 +1,14 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { Mail, Github, Linkedin, Twitter, Send, MapPin, Phone } from 'lucide-react';
 
-const ContactSection = () => {
+interface ContactSectionProps {
+  onEarnPoints: (points: number, message: string) => void;
+}
+
+const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   
@@ -11,8 +17,12 @@ const ContactSection = () => {
     email: '',
     message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+
+  React.useEffect(() => {
+    if (isInView) {
+      onEarnPoints(50, 'Contact Portal Accessed!');
+    }
+  }, [isInView, onEarnPoints]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -21,89 +31,49 @@ const ContactSection = () => {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
-      
-      // Show XP gained animation
-      const xpNotification = document.createElement('div');
-      xpNotification.innerHTML = '+100 XP - Message Sent! 🎉';
-      xpNotification.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-neon-green to-neon-teal text-white px-6 py-3 rounded-lg font-bold text-lg z-50 animate-bounce';
-      document.body.appendChild(xpNotification);
-      setTimeout(() => document.body.removeChild(xpNotification), 3000);
-      
-      setTimeout(() => setSubmitted(false), 5000);
-    }, 2000);
+    onEarnPoints(100, 'Message Sent! Portal Communication Successful!');
+    setFormData({ name: '', email: '', message: '' });
   };
 
-  const handleSocialClick = (socialName: string) => {
-    const xpNotification = document.createElement('div');
-    xpNotification.innerHTML = `+5 XP - ${socialName} Visited!`;
-    xpNotification.className = 'fixed top-20 right-4 bg-gradient-to-r from-neon-purple to-neon-pink text-white px-4 py-2 rounded-lg font-bold text-sm z-50 animate-bounce';
-    document.body.appendChild(xpNotification);
-    setTimeout(() => document.body.removeChild(xpNotification), 2000);
+  const handleSocialClick = (platform: string) => {
+    onEarnPoints(25, `${platform} Portal Accessed!`);
   };
-
-  const showXPNotification = () => {
-    const notification = document.createElement('div');
-    notification.innerHTML = '+20 XP - Contact Section Reached!';
-    notification.className = 'fixed top-20 right-4 bg-gradient-to-r from-neon-green to-neon-teal text-white px-4 py-2 rounded-lg font-bold text-sm z-50 animate-bounce';
-    document.body.appendChild(notification);
-    setTimeout(() => document.body.removeChild(notification), 2000);
-  };
-
-  React.useEffect(() => {
-    if (isInView) {
-      showXPNotification();
-    }
-  }, [isInView]);
 
   const socialLinks = [
-    {
-      name: 'GitHub',
-      url: 'https://github.com/boss-aye',
-      icon: '💻',
-      color: 'hover:text-gray-800 hover:bg-gray-100',
-      description: 'View my code'
+    { 
+      icon: Github, 
+      label: 'GitHub', 
+      href: 'https://github.com/boss-aye',
+      color: 'from-gray-500 to-gray-700',
+      bgColor: 'from-gray-500/20 to-gray-700/20'
     },
-    {
-      name: 'LinkedIn',
-      url: '#',
-      icon: '💼',
-      color: 'hover:text-blue-600 hover:bg-blue-50',
-      description: 'Professional network'
+    { 
+      icon: Linkedin, 
+      label: 'LinkedIn', 
+      href: '#',
+      color: 'from-blue-500 to-blue-700',
+      bgColor: 'from-blue-500/20 to-blue-700/20'
     },
-    {
-      name: 'Email',
-      url: 'mailto:boss@example.com',
-      icon: '📧',
-      color: 'hover:text-red-600 hover:bg-red-50',
-      description: 'Send me an email'
+    { 
+      icon: Twitter, 
+      label: 'Twitter', 
+      href: '#',
+      color: 'from-sky-400 to-sky-600',
+      bgColor: 'from-sky-400/20 to-sky-600/20'
     },
-    {
-      name: 'Twitter',
-      url: '#',
-      icon: '🐦',
-      color: 'hover:text-blue-400 hover:bg-blue-50',
-      description: 'Follow my journey'
+    { 
+      icon: Mail, 
+      label: 'Email', 
+      href: 'mailto:boss@example.com',
+      color: 'from-red-500 to-red-700',
+      bgColor: 'from-red-500/20 to-red-700/20'
     }
-  ];
-
-  const quickContact = [
-    { icon: '📍', label: 'Location', value: 'Addis Ababa, Ethiopia' },
-    { icon: '🌐', label: 'Timezone', value: 'GMT+3 (EAT)' },
-    { icon: '💬', label: 'Languages', value: 'English, Amharic' },
-    { icon: '⚡', label: 'Response Time', value: '< 24 hours' }
   ];
 
   return (
-    <section ref={ref} className="section-padding bg-white dark:bg-dark-primary">
+    <section ref={ref} className="section-padding bg-gradient-to-br from-purple-50 via-pink-50 to-red-50 dark:from-purple-900/20 dark:via-pink-900/20 dark:to-red-900/20">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -112,108 +82,99 @@ const ContactSection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-neon-pink to-neon-blue bg-clip-text text-transparent">
-              Start a Quest Together
+            <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent">
+              Contact Portal
             </span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-            Ready to build something amazing? Let's connect and create magic! ✨
+          <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-red-600 mx-auto rounded-full" />
+          <p className="text-lg text-gray-600 dark:text-gray-300 mt-4">
+            Ready to start your next quest? Let's connect!
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-neon-pink to-neon-blue mx-auto rounded-full" />
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form - Zoom instead of tilt */}
+          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
+            className="bg-white/80 dark:bg-card/80 backdrop-blur-lg rounded-2xl p-8 border border-purple-200/50 dark:border-purple-500/30 shadow-xl"
           >
-            <motion.div
-              className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-dark-secondary dark:to-dark-accent border-2 border-neon-teal/20 rounded-xl p-6"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.2 }}
-            >
-              <h3 className="text-2xl font-bold mb-6 text-foreground flex items-center">
-                <span className="mr-3">🎮</span>
-                Send Message
-              </h3>
+            <h3 className="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Send Message
+            </h3>
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <motion.div
+                whileFocus={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Player Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                  placeholder="Enter your name"
+                />
+              </motion.div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                    Player Name *
-                  </label>
-                  <motion.input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-dark-primary text-foreground focus:border-neon-teal focus:outline-none transition-colors"
-                    placeholder="Enter your name"
-                    whileFocus={{ scale: 1.01 }}
-                  />
-                </div>
+              <motion.div
+                whileFocus={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Email Portal
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                  placeholder="your.email@example.com"
+                />
+              </motion.div>
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                    Email Address *
-                  </label>
-                  <motion.input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-dark-primary text-foreground focus:border-neon-teal focus:outline-none transition-colors"
-                    placeholder="your.email@example.com"
-                    whileFocus={{ scale: 1.01 }}
-                  />
-                </div>
+              <motion.div
+                whileFocus={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Quest Details
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
+                  rows={4}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 resize-none"
+                  placeholder="Describe your project or question..."
+                />
+              </motion.div>
 
-                <div>
-                  <label htmlFor="message" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                    Quest Details *
-                  </label>
-                  <motion.textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-dark-primary text-foreground focus:border-neon-teal focus:outline-none transition-colors resize-none"
-                    placeholder="Tell me about your project idea..."
-                    whileFocus={{ scale: 1.01 }}
-                  />
-                </div>
-
-                <motion.button
-                  type="submit"
-                  disabled={isSubmitting || submitted}
-                  className={`w-full game-button text-lg py-4 ${
-                    submitted 
-                      ? 'bg-gradient-to-r from-green-500 to-emerald-500' 
-                      : isSubmitting 
-                        ? 'opacity-50 cursor-not-allowed' 
-                        : ''
-                  }`}
-                  whileHover={!isSubmitting && !submitted ? { scale: 1.02 } : {}}
-                  whileTap={!isSubmitting && !submitted ? { scale: 0.98 } : {}}
-                >
-                  {submitted ? (
-                    <>✅ Quest Request Sent!</>
-                  ) : isSubmitting ? (
-                    <>⏳ Sending Message...</>
-                  ) : (
-                    <>🚀 Launch Quest Request</>
-                  )}
-                </motion.button>
-              </form>
-            </motion.div>
+              <motion.button
+                type="submit"
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 shadow-lg"
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 0 30px rgba(168, 85, 247, 0.5)"
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Send size={20} />
+                Launch Message
+              </motion.button>
+            </form>
           </motion.div>
 
           {/* Contact Info & Social Links */}
@@ -223,94 +184,82 @@ const ContactSection = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="space-y-8"
           >
-            {/* Quick Contact Info */}
-            <div className="skill-card">
-              <h3 className="text-2xl font-bold mb-6 text-foreground flex items-center">
-                <span className="mr-3">📋</span>
-                Quick Info
+            {/* Contact Info */}
+            <div className="bg-white/80 dark:bg-card/80 backdrop-blur-lg rounded-2xl p-6 border border-purple-200/50 dark:border-purple-500/30 shadow-xl">
+              <h3 className="text-xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                Direct Communication
               </h3>
               <div className="space-y-4">
-                {quickContact.map((item, index) => (
-                  <motion.div
-                    key={item.label}
-                    className="flex items-center space-x-4"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ delay: 0.6 + index * 0.1 }}
-                  >
-                    <div className="text-2xl">{item.icon}</div>
-                    <div>
-                      <div className="font-semibold text-foreground">{item.label}</div>
-                      <div className="text-gray-600 dark:text-gray-300">{item.value}</div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Social Links with XP notifications */}
-            <div className="skill-card">
-              <h3 className="text-2xl font-bold mb-6 text-foreground flex items-center">
-                <span className="mr-3">🌐</span>
-                Connect Online
-              </h3>
-              <div className="grid grid-cols-2 gap-4">
-                {socialLinks.map((social, index) => (
-                  <motion.a
-                    key={social.name}
-                    href={social.url}
-                    onClick={() => handleSocialClick(social.name)}
-                    className={`p-4 rounded-xl border-2 border-gray-200 dark:border-gray-600 text-center transition-all duration-300 group ${social.color}`}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ delay: 0.8 + index * 0.1 }}
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <div className="text-3xl mb-2 group-hover:animate-bounce">{social.icon}</div>
-                    <div className="font-semibold text-foreground">{social.name}</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">{social.description}</div>
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-
-            {/* Availability Status */}
-            <motion.div
-              className="skill-card bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200 dark:border-green-700"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 1.2 }}
-            >
-              <div className="flex items-center space-x-4">
-                <motion.div
-                  className="w-4 h-4 bg-green-500 rounded-full"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-                <div>
-                  <div className="font-bold text-green-700 dark:text-green-400">🟢 Available for Projects</div>
-                  <div className="text-sm text-green-600 dark:text-green-300">Ready to take on new adventures!</div>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg flex items-center justify-center">
+                    <MapPin className="text-purple-600" size={20} />
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-800 dark:text-gray-200">Location</p>
+                    <p className="text-gray-600 dark:text-gray-400">Addis Ababa, Ethiopia 🇪🇹</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg flex items-center justify-center">
+                    <Mail className="text-purple-600" size={20} />
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-800 dark:text-gray-200">Email</p>
+                    <p className="text-gray-600 dark:text-gray-400">boss@example.com</p>
+                  </div>
                 </div>
               </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="bg-white/80 dark:bg-card/80 backdrop-blur-lg rounded-2xl p-6 border border-purple-200/50 dark:border-purple-500/30 shadow-xl">
+              <h3 className="text-xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                Social Portals
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {socialLinks.map((social, index) => {
+                  const IconComponent = social.icon;
+                  return (
+                    <motion.a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => handleSocialClick(social.label)}
+                      className={`flex items-center gap-3 p-4 rounded-lg bg-gradient-to-r ${social.bgColor} border border-gray-200/50 dark:border-gray-600/50 transition-all duration-300`}
+                      whileHover={{ 
+                        scale: 1.05,
+                        boxShadow: "0 10px 25px rgba(0,0,0,0.1)"
+                      }}
+                      whileTap={{ scale: 0.95 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={isInView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ delay: 0.6 + index * 0.1 }}
+                    >
+                      <IconComponent className={`text-xl bg-gradient-to-r ${social.color} bg-clip-text text-transparent`} size={24} />
+                      <span className="font-medium text-gray-800 dark:text-gray-200">{social.label}</span>
+                    </motion.a>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Game Stats */}
+            <motion.div
+              className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-lg rounded-2xl p-6 border border-purple-300/50 dark:border-purple-500/30"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: 0.8 }}
+            >
+              <h3 className="text-lg font-bold mb-3 text-center text-purple-600 dark:text-purple-400">
+                🎮 Contact Achievement
+              </h3>
+              <p className="text-center text-gray-600 dark:text-gray-300 text-sm">
+                Complete all contact interactions to unlock the "Social Butterfly" achievement!
+              </p>
             </motion.div>
           </motion.div>
         </div>
-
-        {/* Fun Footer */}
-        <motion.div
-          className="text-center mt-16 pt-8 border-t border-gray-200 dark:border-gray-700"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 1.4 }}
-        >
-          <p className="text-gray-600 dark:text-gray-300">
-            Built with ❤️ and lots of ☕ by Boss | © 2024 Besufkad Ayele
-          </p>
-          <p className="text-sm text-neon-blue mt-2 font-game">
-            {"<"} May your code compile and your bugs be few {"/>"}
-          </p>
-        </motion.div>
       </div>
     </section>
   );
