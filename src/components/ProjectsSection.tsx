@@ -1,238 +1,238 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
 
-const ProjectsSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { ExternalLink, Github, Star, Award, Zap } from 'lucide-react';
+
+interface ProjectsSectionProps {
+  onEarnPoints: (points: number, message: string) => void;
+}
+
+const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onEarnPoints }) => {
+  const [visitedProjects, setVisitedProjects] = useState<Set<number>>(new Set());
 
   const projects = [
     {
-      id: 1,
-      title: 'EthioShop Mobile App',
-      description: 'A comprehensive e-commerce mobile application built with Flutter for local Ethiopian businesses. Features include real-time inventory, secure payment integration, and multi-language support.',
-      tech: ['Flutter', 'Dart', 'Firebase', 'Stripe API'],
-      image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop',
-      github: 'https://github.com/boss-aye',
-      demo: '#',
-      status: 'Live',
-      category: 'Mobile',
-      difficulty: 'Expert',
-      xpReward: '1,500 XP'
+      title: "E-Commerce Platform",
+      description: "Full-stack e-commerce solution with React, Node.js, and PostgreSQL",
+      technologies: ["React", "Node.js", "PostgreSQL", "Stripe"],
+      image: "/placeholder.svg",
+      liveUrl: "https://example.com",
+      githubUrl: "https://github.com",
+      featured: true,
+      points: 75
     },
     {
-      id: 2,
-      title: 'TechHub Dashboard',
-      description: 'A modern admin dashboard built with Next.js and PostgreSQL for managing tech startup operations. Includes analytics, user management, and real-time notifications.',
-      tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Tailwind CSS'],
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
-      github: 'https://github.com/boss-aye',
-      demo: '#',
-      status: 'In Progress',
-      category: 'Web',
-      difficulty: 'Advanced',
-      xpReward: '1,200 XP'
+      title: "Task Management App",
+      description: "Collaborative task management with real-time updates",
+      technologies: ["React", "TypeScript", "Supabase", "Tailwind"],
+      image: "/placeholder.svg",
+      liveUrl: "https://example.com",
+      githubUrl: "https://github.com",
+      featured: false,
+      points: 50
     },
     {
-      id: 3,
-      title: 'ChatFlow Real-time App',
-      description: 'A real-time messaging application with video calling capabilities built using Node.js, Socket.io, and React. Features end-to-end encryption and file sharing.',
-      tech: ['Node.js', 'Socket.io', 'React', 'WebRTC'],
-      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop',
-      github: 'https://github.com/boss-aye',
-      demo: '#',
-      status: 'Completed',
-      category: 'Full Stack',
-      difficulty: 'Expert',
-      xpReward: '1,800 XP'
+      title: "Weather Dashboard",
+      description: "Beautiful weather app with location-based forecasts",
+      technologies: ["React", "API Integration", "Charts", "PWA"],
+      image: "/placeholder.svg",
+      liveUrl: "https://example.com",
+      githubUrl: "https://github.com",
+      featured: false,
+      points: 40
     },
     {
-      id: 4,
-      title: 'BibleVerse API',
-      description: 'A RESTful API service providing Bible verses in multiple languages including Amharic. Built with Node.js and MongoDB, serving thousands of daily requests.',
-      tech: ['Node.js', 'Express', 'MongoDB', 'Redis'],
-      image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=400&fit=crop',
-      github: 'https://github.com/boss-aye',
-      demo: '#',
-      status: 'Live',
-      category: 'Backend',
-      difficulty: 'Intermediate',
-      xpReward: '900 XP'
+      title: "Portfolio Website",
+      description: "Responsive portfolio with modern animations",
+      technologies: ["React", "Framer Motion", "Tailwind", "TypeScript"],
+      image: "/placeholder.svg",
+      liveUrl: "https://example.com",
+      githubUrl: "https://github.com",
+      featured: true,
+      points: 60
     },
     {
-      id: 5,
-      title: 'TaskMaster Flutter App',
-      description: 'A productivity app with gamification elements, habit tracking, and team collaboration features. Includes offline sync and beautiful animations.',
-      tech: ['Flutter', 'Hive', 'Provider', 'Firebase'],
-      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop',
-      github: 'https://github.com/boss-aye',
-      demo: '#',
-      status: 'Beta',
-      category: 'Mobile',
-      difficulty: 'Advanced',
-      xpReward: '1,300 XP'
+      title: "Chat Application",
+      description: "Real-time messaging app with authentication",
+      technologies: ["React", "Socket.io", "Express", "MongoDB"],
+      image: "/placeholder.svg",
+      liveUrl: "https://example.com",
+      githubUrl: "https://github.com",
+      featured: false,
+      points: 55
+    },
+    {
+      title: "Learning Platform",
+      description: "Educational platform with video streaming and progress tracking",
+      technologies: ["React", "Node.js", "Video.js", "Redis"],
+      image: "/placeholder.svg",
+      liveUrl: "https://example.com",
+      githubUrl: "https://github.com",
+      featured: true,
+      points: 80
     }
   ];
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'Live': return 'bg-green-500';
-      case 'Completed': return 'bg-blue-500';
-      case 'In Progress': return 'bg-yellow-500';
-      case 'Beta': return 'bg-purple-500';
-      default: return 'bg-gray-500';
+  const handleProjectClick = (index: number, project: any) => {
+    if (!visitedProjects.has(index)) {
+      setVisitedProjects(prev => new Set([...prev, index]));
+      onEarnPoints(project.points, `+${project.points} XP - Explored ${project.title}!`);
     }
   };
 
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'Expert': return 'text-red-500 border-red-500';
-      case 'Advanced': return 'text-orange-500 border-orange-500';
-      case 'Intermediate': return 'text-blue-500 border-blue-500';
-      default: return 'text-gray-500 border-gray-500';
-    }
+  const handleLinkClick = (type: 'live' | 'github', projectTitle: string) => {
+    const points = type === 'github' ? 25 : 15;
+    onEarnPoints(points, `+${points} XP - Visited ${projectTitle} ${type === 'github' ? 'Repository' : 'Live Site'}!`);
   };
 
   return (
-    <section ref={ref} className="section-padding bg-white dark:bg-dark-primary">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/10 dark:from-dark-primary dark:via-green-900/20 dark:to-green-800/30 section-padding">
       <div className="container-custom">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="text-5xl md:text-7xl font-game font-bold mb-6">
             <span className="bg-gradient-to-r from-neon-pink to-neon-blue bg-clip-text text-transparent">
-              Epic Quests
+              Projects Gallery
             </span>
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-            Legendary projects that showcase my coding adventures
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Explore my digital creations. Each project tells a story of innovation and craftsmanship.
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-neon-pink to-neon-blue mx-auto rounded-full" />
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 50, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              transition={{ 
-                duration: 0.6, 
-                delay: index * 0.1,
-                type: "spring",
-                stiffness: 100
-              }}
-              className="project-card group"
-              whileHover={{ y: -10 }}
-            >
-              {/* Project Image */}
-              <div className="relative overflow-hidden h-48">
-                <motion.img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-                
-                {/* Status Badge */}
-                <div className="absolute top-4 left-4">
-                  <span className={`px-3 py-1 rounded-full text-xs font-bold text-white ${getStatusColor(project.status)}`}>
-                    {project.status}
-                  </span>
+          {projects.map((project, index) => {
+            const isVisited = visitedProjects.has(index);
+            
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                onClick={() => handleProjectClick(index, project)}
+                className={`group relative bg-card/50 backdrop-blur-sm rounded-xl overflow-hidden border cursor-pointer transition-all duration-500 ${
+                  isVisited 
+                    ? 'border-neon-pink bg-gradient-to-br from-neon-pink/10 to-neon-blue/10 scale-105' 
+                    : 'border-border hover:border-neon-pink/50 hover:scale-105'
+                } ${project.featured ? 'ring-2 ring-neon-teal/30' : ''}`}
+                whileHover={{ y: -10 }}
+              >
+                {project.featured && (
+                  <div className="absolute top-4 left-4 z-10 bg-gradient-to-r from-neon-teal to-neon-blue text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                    <Star size={12} />
+                    Featured
+                  </div>
+                )}
+
+                {isVisited && (
+                  <div className="absolute top-4 right-4 z-10 bg-neon-pink text-white rounded-full p-2">
+                    <Award size={16} />
+                  </div>
+                )}
+
+                <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 relative overflow-hidden">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
 
-                {/* XP Reward */}
-                <div className="absolute top-4 right-4">
-                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-neon-teal text-white">
-                    {project.xpReward}
-                  </span>
-                </div>
+                <div className="p-6">
+                  <h3 className={`text-xl font-bold mb-3 ${isVisited ? 'text-neon-pink' : 'text-foreground'}`}>
+                    {project.title}
+                    {isVisited && <span className="ml-2 text-neon-pink">✓</span>}
+                  </h3>
+                  <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
+                    {project.description}
+                  </p>
 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                {/* Action Buttons */}
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 flex space-x-2">
-                  <motion.a
-                    href={project.github}
-                    className="game-button py-2 px-4 text-sm"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    🔗 Code
-                  </motion.a>
-                  <motion.a
-                    href={project.demo}
-                    className="game-button py-2 px-4 text-sm"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    🚀 Demo
-                  </motion.a>
-                </div>
-              </div>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.map((tech, techIndex) => (
+                      <span
+                        key={techIndex}
+                        className="px-2 py-1 bg-secondary/50 text-secondary-foreground rounded-full text-xs font-medium"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
 
-              {/* Project Info */}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-bold text-neon-blue">
-                    {project.category}
-                  </span>
-                  <span className={`text-xs px-2 py-1 border rounded-full ${getDifficultyColor(project.difficulty)}`}>
-                    {project.difficulty}
-                  </span>
+                  <div className="flex justify-between items-center">
+                    <div className="flex gap-2">
+                      <motion.a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleLinkClick('live', project.title);
+                        }}
+                        className="flex items-center gap-1 px-3 py-1 bg-gradient-to-r from-neon-blue to-neon-teal text-white rounded-lg text-xs font-medium hover:scale-105 transition-transform"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <ExternalLink size={12} />
+                        Live
+                      </motion.a>
+                      <motion.a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleLinkClick('github', project.title);
+                        }}
+                        className="flex items-center gap-1 px-3 py-1 bg-gray-800 text-white rounded-lg text-xs font-medium hover:scale-105 transition-transform"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Github size={12} />
+                        Code
+                      </motion.a>
+                    </div>
+                    <div className="flex items-center gap-1 text-neon-teal text-xs font-bold">
+                      <Zap size={12} />
+                      +{project.points} XP
+                    </div>
+                  </div>
                 </div>
-
-                <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-neon-blue transition-colors">
-                  {project.title}
-                </h3>
-                
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, techIndex) => (
-                    <motion.span
-                      key={tech}
-                      className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-full font-medium"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                      transition={{ delay: index * 0.1 + techIndex * 0.05 + 0.3 }}
-                      whileHover={{ scale: 1.1, backgroundColor: 'rgba(78, 205, 196, 0.2)' }}
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Call to Action */}
         <motion.div
-          className="text-center mt-16"
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="mt-16 text-center"
         >
-          <motion.a
-            href="https://github.com/boss-aye"
-            className="game-button text-lg px-8 py-4"
-            whileHover={{ 
-              scale: 1.05,
-              boxShadow: "0 0 30px rgba(255, 107, 107, 0.5)"
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-            🎮 View All Quests on GitHub
-          </motion.a>
+          <div className="bg-gradient-to-r from-neon-pink/20 to-neon-blue/20 backdrop-blur-sm rounded-xl p-8 border border-neon-pink/30 max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold text-foreground mb-4">Quest Completion Stats</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-neon-pink mb-2">{projects.length}</div>
+                <div className="text-sm text-muted-foreground">Total Projects</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-neon-teal mb-2">{projects.filter(p => p.featured).length}</div>
+                <div className="text-sm text-muted-foreground">Featured</div>
+              </div>
+              <div className="text-center md:col-span-1 col-span-2">
+                <div className="text-3xl font-bold text-neon-blue mb-2">{projects.reduce((sum, p) => sum + p.points, 0)}</div>
+                <div className="text-sm text-muted-foreground">Total XP Available</div>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
-    </section>
+    </div>
   );
 };
 
