@@ -84,7 +84,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, totalPoints,
             whileTap={{ scale: 0.95 }}
           >
             <Code className="text-neon-teal" size={20} />
-            <span className="hidden sm:inline">Boss.dev</span>
+            <span className="hidden sm:inline">Shinobi.dev</span>
             <span className="sm:hidden">Boss</span>
           </motion.button>
 
@@ -143,7 +143,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, totalPoints,
               title="Toggle Theme"
             >
               <span className="text-lg">
-                {isDarkMode ? '👤' : '🥷'}
+                {isDarkMode ? '🥷' : '🥷'}
               </span>
             </motion.button>
 

@@ -2,9 +2,15 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
-const ExperienceSection = () => {
+interface ExperienceSectionProps {
+  onEarnPoints: (points: number, message: string) => void;
+}
+
+const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onEarnPoints }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
+  // Ensure XP is awarded only once even if effect re-runs
+  const awardedOnceRef = useRef(false);
 
   const experiences = [
     {
@@ -76,7 +82,7 @@ const ExperienceSection = () => {
       type: 'Education',
       description: 'Bachelor of Science in Computer Science with focus on software engineering and mobile application development. Active member of coding club and hackathon participant.',
       achievements: [
-        'Graduated with First Class Honors (GPA: 3.8/4.0)',
+        'Graduated with Great Class Honors (GPA: 3.8/4.0)',
         'Won 2nd place in National Coding Competition',
         'Published research paper on mobile app optimization',
         'Led university coding bootcamp teaching 50+ students'
@@ -99,19 +105,12 @@ const ExperienceSection = () => {
     }
   };
 
-  const showXPNotification = () => {
-    const notification = document.createElement('div');
-    notification.innerHTML = '+25 XP - Journey Explored!';
-    notification.className = 'fixed top-20 right-4 bg-gradient-to-r from-neon-green to-neon-teal text-white px-4 py-2 rounded-lg font-bold text-sm z-50 animate-bounce';
-    document.body.appendChild(notification);
-    setTimeout(() => document.body.removeChild(notification), 2000);
-  };
-
   React.useEffect(() => {
-    if (isInView) {
-      showXPNotification();
+    if (isInView && !awardedOnceRef.current) {
+      awardedOnceRef.current = true;
+      onEarnPoints(25, 'Journey Explored!');
     }
-  }, [isInView]);
+  }, [isInView, onEarnPoints]);
 
   return (
     <section ref={ref} className="section-padding bg-gray-50 dark:bg-dark-secondary relative overflow-hidden">

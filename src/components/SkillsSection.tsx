@@ -12,10 +12,17 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ onEarnPoints }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
   const [clickedSkills, setClickedSkills] = useState<Set<string>>(new Set());
+  // Guard to ensure visit XP is awarded only once
+  const awardedOnceRef = useRef(false);
+
 
   useEffect(() => {
-    if (isInView) {
-      onEarnPoints(100, 'Skills Portal Accessed!');
+    if (isInView && !awardedOnceRef.current) {
+      awardedOnceRef.current = true; // Prevent double-run (StrictMode/HMR)
+      if (typeof window !== 'undefined' && !sessionStorage.getItem('visited_skills_bonus')) {
+        onEarnPoints(100, 'Skills Portal Accessed! +100 XP');
+        sessionStorage.setItem('visited_skills_bonus', '1');
+      }
     }
   }, [isInView, onEarnPoints]);
 

@@ -42,6 +42,18 @@ const Index = () => {
     setActiveSection(sectionId);
   };
 
+  // Listen for cross-component navigation events (e.g., from HeroSection modal)
+  useEffect(() => {
+    const onGoToSection = (e: Event) => {
+      const custom = e as CustomEvent<string>;
+      if (custom?.detail) {
+        setActiveSection(custom.detail);
+      }
+    };
+    window.addEventListener('go-to-section', onGoToSection as EventListener);
+    return () => window.removeEventListener('go-to-section', onGoToSection as EventListener);
+  }, []);
+
   const renderCurrentSection = () => {
     switch (activeSection) {
       case 'hero':

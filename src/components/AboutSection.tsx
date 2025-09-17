@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Trophy, Star, Target, Award, CheckCircle } from 'lucide-react';
 import Footer from './Footer';
@@ -10,6 +10,19 @@ interface AboutSectionProps {
 
 const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
   const [clickedAchievements, setClickedAchievements] = useState<Set<number>>(new Set());
+  const awardedOnceRef = useRef(false);
+
+  // Award a one-time visit bonus when the About section is visited (once per session)
+  useEffect(() => {
+    const key = 'visited_about_bonus';
+    if (!awardedOnceRef.current) {
+      awardedOnceRef.current = true; // Prevent StrictMode double-invoke
+      if (typeof window !== 'undefined' && !sessionStorage.getItem(key)) {
+        onEarnPoints(100, 'About Quest discovered! +100 XP');
+        sessionStorage.setItem(key, '1');
+      }
+    }
+  }, [onEarnPoints]);
 
   const achievements = [
     {
