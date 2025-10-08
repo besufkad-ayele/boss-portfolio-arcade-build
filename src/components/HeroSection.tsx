@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Zap, Trophy, Target } from 'lucide-react';
 import Footer from './Footer';
@@ -9,6 +10,7 @@ interface HeroSectionProps {
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
+  const navigate = useNavigate();
   const [clickCount, setClickCount] = useState(0);
   const [hasEarnedInitialPoints, setHasEarnedInitialPoints] = useState(false);
   const [displayedText, setDisplayedText] = useState('');
@@ -45,8 +47,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
   const handleHireMe = () => {
     onEarnPoints(10000, 'Ultimate Contract Secured! +10000 XP');
     setShowActionModal(false);
-    // Redirect to a new page (update to your real hire page URL)
-    window.open('/hire', '_blank');
+    // Navigate to the in-app Hire page
+    navigate('/hire');
   };
 
   const handleContactMe = () => {
@@ -79,7 +81,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
                 className="relative w-80 h-80 mx-auto lg:mx-0 rounded-2xl overflow-hidden border-4 border-emerald-500/50 shadow-2xl"
               >
                 <img
-                  src="./public/portfolio_image.png"
+                  src="https://images.pexels.com/photos/33951339/pexels-photo-33951339.jpeg"
                   alt="Developer"
                   className="w-full h-full object-cover"
                 />

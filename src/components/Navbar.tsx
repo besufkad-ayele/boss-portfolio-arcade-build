@@ -21,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, totalPoints,
     { id: 'about', label: 'About Quest', icon: User, shortLabel: 'About' },
     { id: 'skills', label: 'Skills Dashboard', icon: Code, shortLabel: 'Skills' },
     { id: 'projects', label: 'Projects Gallery', icon: Briefcase, shortLabel: 'Projects' },
-    { id: 'experience', label: 'Adventure Log', icon: Map, shortLabel: 'Journey' },
+    // { id: 'experience', label: 'Adventure Log', icon: Map, shortLabel: 'Journey' },
     { id: 'contact', label: 'Contact Portal', icon: Mail, shortLabel: 'Contact' },
   ];
 

@@ -73,7 +73,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
               </span>
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Discover the journey of First_name Last_name, a passionate developer on a mission to create amazing digital experiences.
+              Discover the journey of Besufkad Ayele, a passionate developer on a mission to create amazing digital experiences.
             </p>
           </motion.div>
 
@@ -86,13 +86,13 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
             >
               <h2 className="text-3xl font-bold text-white mb-4">The Developer's Story</h2>
               <p className="text-lg text-gray-300 leading-relaxed">
-                Welcome to my digital realm! I'm First_name Last_name, a passionate full-stack developer 
+                Welcome to my digital realm! I'm Besufkad Ayele, a passionate full-stack developer 
                 who transforms ideas into interactive experiences. With expertise in modern web technologies 
                 and a love for clean, efficient code.
               </p>
               <p className="text-lg text-gray-300 leading-relaxed">
                 My journey in tech started with curiosity and evolved into mastery. I specialize in 
-                React, TypeScript, Node.js, and modern web frameworks, always staying ahead of the curve 
+                React, TypeScript, Node.js, and modern web frameworks, and mobile development using Flutter and always staying ahead of the curve 
                 with the latest technologies and best practices. I'm the Boss at what I do.
               </p>
               
@@ -130,11 +130,11 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-300">Projects Completed</span>
-                    <span className="text-2xl font-bold text-neon-teal">100+</span>
+                    <span className="text-2xl font-bold text-neon-teal">5+</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-300">Years Experience</span>
-                    <span className="text-2xl font-bold text-neon-blue">5+</span>
+                    <span className="text-2xl font-bold text-neon-blue">2+</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-300">Technologies Mastered</span>
