@@ -1,12 +1,12 @@
-# Welcome to your Lovable project
+# Welcome to your portfolio project
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/c09a8a74-311d-4291-b342-655e5f99b857
+**URL**:
 
-# Boss Portfolio — Arcade Build
+# Besufkad's Portfolio — Arcade Build
 
-![Portfolio Screenshot](public/portfolio_image.png)
+![Portfolio Screenshot](public/screenshot.png)
 
 An elegant, responsive developer portfolio built with React, TypeScript, Vite, Tailwind CSS and shadcn/ui. This repository contains the source for a single-page portfolio site with components for Hero, About, Projects, Experience, Skills, Contact and an arcade-style game sidebar.
 
