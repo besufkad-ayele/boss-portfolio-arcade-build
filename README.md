@@ -4,70 +4,94 @@
 
 **URL**: https://lovable.dev/projects/c09a8a74-311d-4291-b342-655e5f99b857
 
-## How can I edit this code?
+# Boss Portfolio — Arcade Build
 
-There are several ways of editing your application.
+![Portfolio Screenshot](public/portfolio_image.png)
 
-**Use Lovable**
+An elegant, responsive developer portfolio built with React, TypeScript, Vite, Tailwind CSS and shadcn/ui. This repository contains the source for a single-page portfolio site with components for Hero, About, Projects, Experience, Skills, Contact and an arcade-style game sidebar.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/c09a8a74-311d-4291-b342-655e5f99b857) and start prompting.
+Why this README is great:
+- Clear setup steps for local development
+- A friendly project overview and feature list
+- A screenshot (above) so you know what to expect
 
-Changes made via Lovable will be committed automatically to this repo.
+## Quick links
 
-**Use your preferred IDE**
+- Live preview (dev server): http://localhost:8080/
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Features
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Fast development with Vite
+- TypeScript + React
+- Component library: shadcn/ui (Tailwind-powered)
+- Custom UI components in `src/components` (Navbar, Hero, Projects, Footer, etc.)
+- Small arcade-style mini-game in the sidebar (see `GameSidebar`)
 
-Follow these steps:
+## Screenshot
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+The screenshot above is the production-like build of the portfolio. The image file used is `public/portfolio_image.png`.
+
+## Local development (Windows / PowerShell)
+
+1. Clone the repository and open a terminal in the project root.
+
+```powershell
 git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
 cd <YOUR_PROJECT_NAME>
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
+2. Install dependencies and run the dev server:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```powershell
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Open http://localhost:8080/ in your browser. If Vite reports a different port, use that URL instead.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Tip: If you see errors about missing packages like `react-icons/fa`, install them with:
 
-**Use GitHub Codespaces**
+```powershell
+npm install react-icons
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Available npm scripts
 
-## What technologies are used for this project?
+- `npm run dev` — start Vite dev server
+- `npm run build` — create a production build (via Vite)
+- `npm run preview` — locally preview the production build
 
-This project is built with:
+## Troubleshooting
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- Missing imports: if Vite errors list an imported package as "could not be resolved", install the package (for example `react-icons`) and restart the dev server.
+- Port conflicts: Vite usually picks a new port if 5173/8080 is taken—check the terminal output for the correct address.
+- Node / npm versions: use a modern Node.js (v18+) and npm. Use `nvm` to manage Node versions.
 
-## How can I deploy this project?
+## Project structure (high level)
 
-Simply open [Lovable](https://lovable.dev/projects/c09a8a74-311d-4291-b342-655e5f99b857) and click on Share -> Publish.
+- `src/` — React + TypeScript source
+	- `components/` — UI components used across the site
+	- `pages/` — route pages
+	- `hooks/`, `lib/` — utilities and hooks
+- `public/` — static assets (including `portfolio_image.png`)
+- `index.html`, `vite.config.ts`, `package.json` — project config
 
-## Can I connect a custom domain to my Lovable project?
+## Contributing
 
-Yes, you can!
+1. Fork the repo and create a feature branch.
+2. Make your changes and add clear commit messages.
+3. Open a pull request with a concise description of your changes.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## License & Acknowledgements
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project uses OSS packages—see `package.json` for full dependency details. Thanks to the Vite, React, Tailwind and shadcn-ui communities.
+
+---
+
+If you want, I can also:
+
+- Add badges (build / license / npm version)
+- Add a short CONTRIBUTING.md or CODE_OF_CONDUCT.md
+- Add GitHub Actions for CI build previews
+
+If you'd like one of those, tell me which and I'll add it.
