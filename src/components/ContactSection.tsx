@@ -56,15 +56,15 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
     { 
       icon: Github, 
       label: 'GitHub', 
-      href: 'https://github.com/boss-aye',
-      color: 'from-gray-500 to-gray-700',
-      bgColor: 'from-gray-500/20 to-gray-700/20',
+      href: 'https://github.com/besufkad-ayele',
+      color: 'from-neutral-900 to-neutral-700',
+      bgColor: 'from-neutral-900/20 to-neutral-700/20',
       points: 30
     },
     { 
       icon: Linkedin, 
       label: 'LinkedIn', 
-      href: '#',
+      href: 'https://www.linkedin.com/in/besufkad-ayele',
       color: 'from-blue-500 to-blue-700',
       bgColor: 'from-blue-500/20 to-blue-700/20',
       points: 30
@@ -72,7 +72,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
     { 
       icon: Twitter, 
       label: 'Twitter', 
-      href: '#',
+      href: 'https://x.com/ayele_besufkad',
       color: 'from-sky-400 to-sky-600',
       bgColor: 'from-sky-400/20 to-sky-600/20',
       points: 30
@@ -80,7 +80,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
     { 
       icon: Mail, 
       label: 'Email', 
-      href: 'mailto:boss@example.com',
+      href: 'mailto:ayebesufkad@gmail.com',
       color: 'from-red-500 to-red-700',
       bgColor: 'from-red-500/20 to-red-700/20',
       points: 35
@@ -243,7 +243,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
                     </div>
                     <div>
                       <p className="font-medium text-gray-800 dark:text-gray-200">Email</p>
-                      <p className="text-gray-600 dark:text-gray-400">boss@example.com</p>
+                      <p className="text-gray-600 dark:text-gray-400">ayebesufkad@gmail.com</p>
                     </div>
                   </motion.div>
                 </div>

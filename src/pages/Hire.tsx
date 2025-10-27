@@ -27,7 +27,7 @@ const Hire: React.FC = () => {
 
           <div className="p-4 bg-teal-900/20 rounded">
             <h3 className="font-semibold text-teal-200">Contact</h3>
-            <p className="text-sm text-gray-300 mt-2">Email: <a className="text-emerald-300 underline" href="mailto:hello@shinobi.dev">hello@shinobi.dev</a></p>
+            <p className="text-sm text-gray-300 mt-2">Email: <a className="text-emerald-300 underline" href="mailto:ayebesufkad@gmail.com">ayebesufkad@gmail.com</a></p>
             <p className="text-sm text-gray-300 mt-1">Or join the dojo on Discord for quick chat.</p>
           </div>
         </div>
