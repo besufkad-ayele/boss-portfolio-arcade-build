@@ -10,68 +10,38 @@ interface ProjectsSectionProps {
 const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onEarnPoints }) => {
   const [visitedProjects, setVisitedProjects] = useState<Set<number>>(new Set());
 
-  const projects = [
-    {
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce solution with React, Node.js, and PostgreSQL",
-      technologies: ["React", "Node.js", "PostgreSQL", "Stripe"],
-      image: "/placeholder.svg",
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com",
-      featured: true,
-      points: 75
-    },
-    {
-      title: "Task Management App",
-      description: "Collaborative task management with real-time updates",
-      technologies: ["React", "TypeScript", "Supabase", "Tailwind"],
-      image: "/placeholder.svg",
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com",
-      featured: false,
-      points: 50
-    },
-    {
-      title: "Weather Dashboard",
-      description: "Beautiful weather app with location-based forecasts",
-      technologies: ["React", "API Integration", "Charts", "PWA"],
-      image: "/placeholder.svg",
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com",
-      featured: false,
-      points: 40
-    },
-    {
-      title: "Portfolio Website",
-      description: "Responsive portfolio with modern animations",
-      technologies: ["React", "Framer Motion", "Tailwind", "TypeScript"],
-      image: "/placeholder.svg",
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com",
-      featured: true,
-      points: 60
-    },
-    {
-      title: "Chat Application",
-      description: "Real-time messaging app with authentication",
-      technologies: ["React", "Socket.io", "Express", "MongoDB"],
-      image: "/placeholder.svg",
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com",
-      featured: false,
-      points: 55
-    },
-    {
-      title: "Learning Platform",
-      description: "Educational platform with video streaming and progress tracking",
-      technologies: ["React", "Node.js", "Video.js", "Redis"],
-      image: "/placeholder.svg",
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com",
-      featured: true,
-      points: 80
-    }
-  ];
+const projects = [
+  {
+    title: "Code for Africa Volunteer Platform",
+    description: "Developed a dynamic platform connecting developers and organizations for volunteer-driven solutions, addressing critical issues like childcare, cancer awareness, and children's health through impactful pro-bono tech initiatives.",
+    technologies: ["Flutter", "Node.js", "Git"],
+    image: "https://images.pexels.com/photos/33920044/pexels-photo-33920044.jpeg",
+    liveUrl: "https://example.com",
+    githubUrl: "https://github.com/besufkad-ayele/code-for-africa",
+    featured: true,
+    points: 80
+  },
+  {
+    title: "Tutor Link",
+    description: "Created an innovative application to seamlessly connect tutors with parents in their local area, streamlining access to personalized educational support.",
+    technologies: ["Flutter", "Node.js", "Firebase"],
+    image: "https://images.pexels.com/photos/18286979/pexels-photo-18286979/free-photo-of-teacher-standing-by-whiteboard.jpeg?auto=compress&cs=tinysrgb&w=300",
+    liveUrl: "https://example.com",
+    githubUrl: "https://github.com/besufkad-ayele/tutor-link.git",
+    featured: true,
+    points: 70
+  },
+  {
+    title: "Majeat Food Delivery Application",
+    description: "Designed a user-centric e-commerce platform with distinctive features like group ordering, enhancing collaborative dining experiences and simplifying food delivery.",
+    technologies: ["Flutter", "Firebase", "Node.js"],
+    image: "https://images.pexels.com/photos/17224585/pexels-photo-17224585.jpeg",
+    liveUrl: "https://example.com",
+    githubUrl: "https://github.com/besufkad-ayele/majeat_Flutter.git",
+    featured: true,
+    points: 75
+  }
+];
 
   const handleProjectClick = (index: number, project: any) => {
     if (!visitedProjects.has(index)) {
@@ -122,14 +92,14 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onEarnPoints }) => {
                 whileHover={{ y: -10 }}
               >
                 {project.featured && (
-                  <div className="absolute top-4 left-4 z-10 bg-gradient-to-r from-neon-teal to-neon-blue text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                  <div className="absolute top-4 left-4 z-10 bg-gradient-to-r from-neon-teal to-neon-blue text-black px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
                     <Star size={12} />
                     Featured
                   </div>
                 )}
 
                 {isVisited && (
-                  <div className="absolute top-4 right-4 z-10 bg-neon-pink text-white rounded-full p-2">
+                  <div className="absolute top-4 right-4 z-10 bg-neon-pink text- rounded-full p-2">
                     <Award size={16} />
                   </div>
                 )}

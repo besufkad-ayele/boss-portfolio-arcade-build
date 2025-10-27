@@ -81,7 +81,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
                 className="relative w-80 h-80 mx-auto lg:mx-0 rounded-2xl overflow-hidden border-4 border-emerald-500/50 shadow-2xl"
               >
                 <img
-                  src="https://images.pexels.com/photos/33951339/pexels-photo-33951339.jpeg"
+                  src="/portfolio_image.png"
                   alt="Developer"
                   className="w-full h-full object-cover"
                 />
