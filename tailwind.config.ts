@@ -53,18 +53,24 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				// Gaming theme colors
+				// Professional Slate/Blue Dark Theme
 				neon: {
-					pink: '#FF6B6B',
-					teal: '#4ECDC4',
-					blue: '#45B7D1',
-					purple: '#9B59B6',
-					green: '#2ECC71',
+					pink: '#3b82f6',      // Blue
+					teal: '#2563eb',      // Dark blue
+					blue: '#60a5fa',      // Light blue
+					purple: '#1e40af',    // Navy blue
+					green: '#3b82f6',     // Blue
 				},
+				// Flat aliases used across components - Professional Blue palette
+				'neon-pink': '#3b82f6',      // Blue
+				'neon-teal': '#2563eb',      // Dark blue
+				'neon-blue': '#60a5fa',      // Light blue
+				'neon-purple': '#1e40af',    // Navy blue
+				'neon-green': '#3b82f6',     // Blue
 				dark: {
-					primary: '#1A1A2E',
-					secondary: '#16213E',
-					accent: '#0F3460',
+					primary: '#0F172A',      // Slate 900
+					secondary: '#1E293B',    // Slate 800
+					accent: '#334155',       // Slate 700
 				},
 			},
 			borderRadius: {
@@ -94,8 +100,8 @@ export default {
 					'50%': { transform: 'translateY(-20px)' },
 				},
 				glow: {
-					'0%, 100%': { boxShadow: '0 0 10px #4ECDC4' },
-					'50%': { boxShadow: '0 0 20px #4ECDC4, 0 0 30px #4ECDC4' },
+					'0%, 100%': { boxShadow: '0 0 10px #3b82f6' },
+					'50%': { boxShadow: '0 0 20px #3b82f6, 0 0 30px #3b82f6' },
 				},
 				'level-up': {
 					'0%': { transform: 'scale(1)', opacity: '1' },

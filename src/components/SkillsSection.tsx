@@ -1,111 +1,116 @@
-
-import React, { useState, useEffect, useRef } from 'react';
-import { Globe, Database, Palette, Trophy } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
 
 interface SkillsSectionProps {
-  onEarnPoints: (points: number, message: string) => void;
+  onEarnPoints?: (points: number, message: string) => void;
 }
 
 const SkillsSection: React.FC<SkillsSectionProps> = ({ onEarnPoints }) => {
-  const ref = useRef<HTMLElement | null>(null);
-  const [mastered, setMastered] = useState<Set<string>>(new Set());
-  const visitedRef = useRef(false);
-
-  useEffect(() => {
-    if (!visitedRef.current) {
-      visitedRef.current = true;
-      if (!sessionStorage.getItem('skills_visit')) {
-        onEarnPoints(50, 'Visited Skills — +50 XP');
-        sessionStorage.setItem('skills_visit', '1');
-      }
-    }
-  }, [onEarnPoints]);
-
-  const categories = [
+  const skills = [
     {
-      title: 'Frontend',
-      icon: <Globe size={18} className="text-emerald-400" />,
-      skills: [
-        { id: 'react', name: 'React', level: 95, xp: 30 },
-        { id: 'ts', name: 'TypeScript', level: 90, xp: 25 },
-        { id: 'tailwind', name: 'Tailwind', level: 85, xp: 20 }
-      ]
+      category: 'Mobile',
+      tags: ['Flutter', 'Dart', 'Riverpod', 'Provider', 'iOS', 'Android'],
+      featured: ['Flutter', 'Dart']
     },
     {
-      title: 'Backend',
-      icon: <Database size={18} className="text-emerald-400" />,
-      skills: [
-        { id: 'node', name: 'Node.js', level: 85, xp: 25 },
-        { id: 'api', name: 'APIs', level: 90, xp: 20 },
-        { id: 'laravel', name: 'Laravel', level: 75, xp: 15 },
-        { id: 'graphql', name: 'GraphQL', level: 80, xp: 20 },
-      ]
+      category: 'Frontend',
+      tags: ['Next.js', 'React.js', 'TypeScript', 'JavaScript', 'HTML5/CSS3', 'Figma'],
+      featured: ['Next.js', 'React.js']
     },
     {
-      title: 'Design',
-      icon: <Palette size={18} className="text-emerald-400" />,
-      skills: [
-        { id: 'figma', name: 'Figma', level: 80, xp: 15 },
-        { id: 'uiux', name: 'UI/UX', level: 75, xp: 15 }
-      ]
+      category: 'Backend',
+      tags: ['NestJS', 'Node.js', 'FastAPI', 'Laravel', 'Python', 'GraphQL', 'REST APIs'],
+      featured: ['NestJS', 'Node.js']
     },
     {
-      title: 'MOBILE ',
-      icon: <Trophy size={18} className="text-emerald-400" />,
-      skills: [
-        { id: 'flutter', name: 'Flutter', level: 80, xp: 20 },
-        { id: 'dart', name: 'Dart', level: 75, xp: 15 }
-      ]
+      category: 'Databases',
+      tags: ['PostgreSQL', 'Firebase', 'MongoDB', 'MySQL', 'Supabase', 'Redis'],
+      featured: ['PostgreSQL', 'Firebase']
+    },
+    {
+      category: 'Cloud & DevOps',
+      tags: ['AWS', 'Vercel', 'GCP', 'Git / GitHub', 'Microservices', 'Bull Queue'],
+      featured: ['AWS', 'Vercel']
+    },
+    {
+      category: 'Design & AI',
+      tags: ['UI/UX Design', 'Figma', 'Adobe XD', 'AI/ML', 'Groq API', 'WhatsApp Bots', 'Product Design'],
+      featured: ['UI/UX Design', 'AI/ML']
     }
   ];
 
-  const handleMaster = (id: string, name: string, xp: number) => {
-    if (mastered.has(id)) return;
-    setMastered(prev => new Set(prev).add(id));
-    onEarnPoints(xp, `Mastered ${name} — +${xp} XP`);
-  };
-
   return (
-    <section ref={ref} className="section-padding bg-black/30 backdrop-blur-sm text-black rounded-lg border border-emerald-800/20">
-      <div className="container-custom">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-emerald-300">Skills</h2>
-          <p className="text-sm text-black-400">Core technologies and tools I use regularly.</p>
-        </div>
+    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+      {/* Section Header */}
+      <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+        className="absolute top-32 left-48 flex items-center gap-6"
+      >
+        <span className="font-['DM_Mono'] text-[11px] text-[var(--gold)] tracking-[2px]">02 —</span>
+        <h2 className="font-['Bebas_Neue'] text-[clamp(42px,6vw,72px)] tracking-[2px] leading-none">
+          Skills
+        </h2>
+        <div className="w-48 h-[1px] bg-[var(--line)]" />
+      </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {categories.map(cat => (
-            <div key={cat.title} className="bg-transparent rounded-lg p-4 border border-red-800/10">
-              <div className="flex items-center gap-3 mb-3">
-                {cat.icon}
-                <h3 className="font-semibold text-white">{cat.title}</h3>
-              </div>
-
-              <div className="space-y-3">
-                {cat.skills.map(s => (
-                  <div key={s.id} className="flex items-center justify-between gap-3">
-                    <div className="min-w-0">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-200">{s.name}  </span>
-                        <span></span>
-                        <span className="text-xs text-red-400"> {s.level} %</span>
-                      </div>
-                      <div className="w-full h-2 bg-gray-800 rounded mt-2 overflow-hidden">
-                        <div style={{ width: `${s.level}%` }} className="h-full bg-emerald-500" />
-                      </div>
-                    </div>
-                    <button onClick={() => handleMaster(s.id, s.name, s.xp)} className="ml-3 px-2 py-1 text-xs rounded bg-emerald-600/20 hover:bg-emerald-600/30">+{s.xp} XP</button>
-                  </div>
-                ))}
-              </div>
+      {/* Skills Grid */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        className="relative z-10 grid grid-cols-3 gap-[2px] bg-[var(--line)] border border-[var(--line)] max-w-[1200px] mx-auto mt-20"
+      >
+        {skills.map((skill, idx) => (
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 * idx }}
+            whileHover={{ backgroundColor: 'rgba(201,168,76,0.04)' }}
+            className="bg-[var(--black)] p-10 transition-all"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <span className="font-['DM_Mono'] text-[10px] tracking-[3px] uppercase text-[var(--gold)]">
+                {skill.category}
+              </span>
+              <div className="flex-1 h-[1px] bg-[var(--line)]" />
             </div>
-          ))}
-        </div>
 
-        <div className="mt-8 text-center text-xs text-gray-400">
-          <Trophy className="inline text-yellow-400 mr-2" /> Click a skill to earn points. Clean, simple, and consistent.
-        </div>
-      </div>
+            <div className="flex flex-wrap gap-2">
+              {skill.tags.map((tag, tagIdx) => (
+                <motion.span
+                  key={tagIdx}
+                  whileHover={{ 
+                    scale: 1.05, 
+                    borderColor: 'var(--gold)', 
+                    color: 'var(--gold)',
+                    backgroundColor: 'rgba(201,168,76,0.06)'
+                  }}
+                  className={`py-[6px] px-[14px] border text-[12px] font-['DM_Mono'] font-light transition-all cursor-default ${
+                    skill.featured.includes(tag)
+                      ? 'border-[rgba(201,168,76,0.5)] text-[var(--off-white)]'
+                      : 'border-[rgba(201,168,76,0.2)] text-[var(--warm-gray)]'
+                  }`}
+                >
+                  {tag}
+                </motion.span>
+              ))}
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* Decorative Background */}
+      <motion.div
+        initial={{ opacity: 0, rotate: -45 }}
+        animate={{ opacity: 0.03, rotate: 0 }}
+        transition={{ duration: 2, delay: 0.5 }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-['Bebas_Neue'] text-[300px] leading-none text-[var(--gold)]"
+      >
+        S
+      </motion.div>
     </section>
   );
 };

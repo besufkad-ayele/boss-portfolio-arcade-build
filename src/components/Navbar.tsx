@@ -21,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, totalPoints,
     { id: 'about', label: 'About Quest', icon: User, shortLabel: 'About' },
     { id: 'skills', label: 'Skills Dashboard', icon: Code, shortLabel: 'Skills' },
     { id: 'projects', label: 'Projects Gallery', icon: Briefcase, shortLabel: 'Projects' },
-    // { id: 'experience', label: 'Adventure Log', icon: Map, shortLabel: 'Journey' },
+    { id: 'experience', label: 'Adventure Log', icon: Map, shortLabel: 'Journey' },
     { id: 'contact', label: 'Contact Portal', icon: Mail, shortLabel: 'Contact' },
   ];
 
@@ -66,8 +66,8 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, totalPoints,
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled 
-          ? 'bg-white/10 dark:bg-dark-primary/10 backdrop-blur-2xl border-b border-white/20 dark:border-green-700/20 shadow-2xl' 
-          : 'bg-white/5 dark:bg-dark-primary/5 backdrop-blur-xl border-b border-white/10 dark:border-green-700/10'
+          ? 'bg-slate-900/95 backdrop-blur-2xl border-b border-slate-700/50 shadow-2xl' 
+          : 'bg-slate-900/80 backdrop-blur-xl border-b border-slate-700/30'
       }`}
       style={{
         backdropFilter: 'blur(20px)',
@@ -79,13 +79,13 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, totalPoints,
           {/* Logo */}
           <motion.button
             onClick={handleLogoClick}
-            className="text-xl sm:text-2xl font-game font-bold bg-gradient-to-r from-neon-pink to-neon-blue bg-clip-text text-transparent hover:scale-110 transition-transform duration-200 flex items-center gap-2"
+            className="text-xl sm:text-2xl font-game font-bold text-slate-100 hover:text-blue-400 hover:scale-110 transition-all duration-200 flex items-center gap-2"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Code className="text-neon-teal" size={20} />
-            <span className="hidden sm:inline">Shinobi.dev</span>
-            <span className="sm:hidden">Boss</span>
+            <Code className="text-blue-400" size={20} />
+            <span className="hidden sm:inline">Besufkad.dev</span>
+            <span className="sm:hidden">BA</span>
           </motion.button>
 
           {/* Desktop Navigation - Icons Only */}
@@ -98,8 +98,8 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, totalPoints,
                   onClick={() => handleNavigation(item.id)}
                   className={`p-3 rounded-xl font-medium transition-all duration-300 relative overflow-hidden group ${
                     activeSection === item.id
-                      ? 'bg-gradient-to-r from-neon-blue/60 to-neon-teal/60 text-white shadow-lg backdrop-blur-sm scale-110' 
-                      : 'text-foreground hover:bg-white/20 dark:hover:bg-green-800/30 backdrop-blur-sm hover:scale-105'
+                      ? 'bg-blue-600/80 text-white shadow-lg shadow-blue-500/30 scale-110' 
+                      : 'text-slate-300 hover:bg-slate-700/50 hover:text-white hover:scale-105'
                   }`}
                   whileHover={{ scale: activeSection === item.id ? 1.1 : 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -109,7 +109,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, totalPoints,
                   {activeSection === item.id && (
                     <motion.div
                       layoutId="activeIndicator"
-                      className="absolute inset-0 bg-gradient-to-r from-neon-blue/20 to-neon-teal/20 rounded-xl -z-10 backdrop-blur-sm"
+                      className="absolute inset-0 bg-blue-500/20 rounded-xl -z-10"
                       initial={false}
                       transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     />
@@ -127,8 +127,8 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, totalPoints,
           {/* Controls */}
           <div className="flex items-center space-x-2">
             {/* Points Display */}
-            <div className="bg-gradient-to-r from-neon-green/20 to-neon-teal/20 backdrop-blur-sm rounded-full px-3 py-1 border border-neon-teal/30">
-              <span className="text-xs sm:text-sm font-bold text-neon-teal">
+            <div className="bg-slate-800/80 backdrop-blur-sm rounded-full px-3 py-1 border border-blue-500/30">
+              <span className="text-xs sm:text-sm font-bold text-blue-400">
                 <span className="hidden sm:inline">XP: </span>
                 {totalPoints.toLocaleString()}
               </span>
@@ -137,20 +137,20 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, totalPoints,
             {/* Dark Mode Toggle */}
             <motion.button
               onClick={toggleDarkMode}
-              className="p-2 rounded-xl bg-gradient-to-r from-gray-200/50 to-gray-300/50 dark:from-green-800/50 dark:to-green-700/50 backdrop-blur-sm border border-gray-300/30 dark:border-green-600/30"
+              className="p-2 rounded-xl bg-slate-800/80 backdrop-blur-sm border border-slate-600/50 hover:border-blue-500/50 transition-colors"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               title="Toggle Theme"
             >
               <span className="text-lg">
-                {isDarkMode ? '🥷' : '🥷'}
+                {isDarkMode ? '🌙' : '☀️'}
               </span>
             </motion.button>
 
             {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 rounded-xl bg-gradient-to-r from-neon-pink to-neon-blue text-white backdrop-blur-sm"
+              className="md:hidden p-2 rounded-xl bg-blue-600 text-white backdrop-blur-sm"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -169,7 +169,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, totalPoints,
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden overflow-hidden bg-white/10 dark:bg-dark-primary/10 backdrop-blur-2xl rounded-lg mt-2 border border-white/20 dark:border-green-700/20"
+              className="md:hidden overflow-hidden bg-slate-800/95 backdrop-blur-2xl rounded-lg mt-2 border border-slate-700/50"
               style={{
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
@@ -184,8 +184,8 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, totalPoints,
                       onClick={() => handleNavigation(item.id)}
                       className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all duration-300 flex items-center gap-3 ${
                         activeSection === item.id
-                          ? 'bg-gradient-to-r from-neon-blue/60 to-neon-teal/60 text-white scale-105'
-                          : 'text-foreground hover:bg-white/20 dark:hover:bg-green-800/30'
+                          ? 'bg-blue-600 text-white scale-105'
+                          : 'text-slate-300 hover:bg-slate-700/50 hover:text-white'
                       }`}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}

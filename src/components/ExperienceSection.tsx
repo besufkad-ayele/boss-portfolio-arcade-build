@@ -1,113 +1,136 @@
-
-import React, { useRef, useEffect } from 'react';
-import { Footer } from 'react-day-picker';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Briefcase } from 'lucide-react';
 
 interface ExperienceSectionProps {
-  onEarnPoints: (points: number, message: string) => void;
+  onEarnPoints?: (points: number, message: string) => void;
 }
 
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onEarnPoints }) => {
-  const ref = useRef<HTMLElement | null>(null);
-  const awardedRef = useRef(false);
-
-const experiences = [
-  {
-    id: 1,
-    title: 'Flutter Intern',
-    company: 'Quadrant Innovations',
-    period: 'Jun 2024 - Jul 2024',
-    location: 'Addis Ababa, Ethiopia',
-    type: 'Internship',
-    description: 'Engaged in real-world projects providing practical experience in app development, focusing on building mobile applications using Flutter.',
-    achievements: [
-      'Built e-commerce food delivery application with features like group ordering',
-      'Integrated Firebase and Node.js for backend functionality',
-      'Designed user-centric platform enhancing collaborative dining experiences'
-    ],
-    skills: ['Flutter', 'Firebase', 'Node.js'],
-    xpGained: '1,200 XP',
-    level: 'Intermediate',
-    icon: '🍲'
-  },
-  {
-    id: 2,
-    title: 'Flutter Intern',
-    company: 'Quantum Technologies',
-    period: 'Jul 2023 - Aug 2023',
-    location: 'Addis Ababa, Ethiopia',
-    type: 'Internship',
-    description: 'Built and maintained mobile applications using Flutter, with a focus on state management and applying critical thinking to solve complex coding challenges.',
-    achievements: [
-      'Implemented state management using Provider for responsive app development',
-      'Gained solid understanding of Flutter and mobile development best practices',
-      'Contributed to scalable app solutions in a collaborative team environment'
-    ],
-    skills: ['Flutter', 'Dart', 'Provider'],
-    xpGained: '900 XP',
-    level: 'Beginner',
-    icon: '🔧'
-  },
-  {
-    id: 3,
-    title: 'Software Engineering Graduate Student',
-    company: 'Haramaya University & ALX Africa',
-    period: 'Sep 2021 - Present',
-    location: 'Haramaya, Ethiopia (Online for ALX)',
-    type: 'Education',
-    description: 'B.Sc. in Software Engineering with hands-on projects in mobile and web development, achieving high academic performance.',
-    achievements: [
-      'Developed projects like Tutor Link app connecting tutors and parents using Flutter and Node.js',
-      'Created volunteer platform for Code for Africa addressing social issues like childcare and health',
-      'Maintained 3.77 GPA at Haramaya and 97% at ALX Africa'
-    ],
-    skills: ['Flutter', 'JavaScript', 'Next.js', 'Git', 'Figma'],
-    xpGained: '2,500 XP',
-    level: 'Advanced',
-    icon: '🎓'
-  }
-];
-
-  useEffect(() => {
-    if (!awardedRef.current) {
-      awardedRef.current = true;
-      onEarnPoints(25, 'Viewed Experience — +25 XP');
+  const experiences = [
+    {
+      period: 'Oct 2025 — Present',
+      type: 'Full-time · Onsite',
+      role: 'Full-Stack Developer',
+      company: 'i-Capital Africa Institute',
+      bullets: [
+        'Led development of MasterBuilderLab LMS — a production platform serving 200+ active fellows across 3+ organizations using Next.js, NestJS, and Flutter.',
+        'Architected GraphQL APIs for efficient data fetching across web and mobile clients, reducing data-retrieval latency significantly.',
+        'Contributed to a driver\'s platform, Tele-birr mini-app, and Investify investment platform with full-stack Flutter/Next.js/NestJS architecture.',
+        'Designed microservices-based backend systems in NestJS, improving modularity and scalability across multiple products.',
+      ]
+    },
+    {
+      period: 'Feb 2025 — Present',
+      type: 'Freelance · Remote',
+      role: 'Full-Stack Laravel Developer',
+      company: 'Church Management System',
+      bullets: [
+        'Designed and built a full-stack Church Management System using Laravel and Filament with modular architecture.',
+        'Implemented role-based access control, relational database design (MySQL/PostgreSQL), and dynamic admin dashboards.',
+        'Ensured data integrity and security across sensitive organizational workflows.',
+      ]
+    },
+    {
+      period: 'Mar 2024 — Sep 2024',
+      type: 'Internship · Onsite',
+      role: 'Flutter Developer Intern',
+      company: 'Quadrant Innovations',
+      bullets: [
+        'Developed and maintained Flutter mobile applications using Provider state management and Git version control.',
+        'Built core features, resolved complex bugs, improving app stability and reducing crash rates during testing.',
+      ]
+    },
+    {
+      period: 'Jul 2023 — Aug 2023',
+      type: 'Internship · Onsite',
+      role: 'Flutter Developer Intern',
+      company: 'Quantum Technologies',
+      bullets: [
+        'Applied clean code principles and modular architecture to build reusable Flutter widgets with Dart.',
+        'Organized app logic with Provider and clear separation of concerns, enabling scalable and testable codebase.',
+      ]
     }
-  }, [onEarnPoints]);
+  ];
 
   return (
-    <section ref={ref} className="section-padding bg-slate-900 text-white">
-      <div className="container-custom">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-emerald-300">Experience</h2>
-          <p className="text-sm text-gray-300">A concise summary of roles and achievements.</p>
-        </div>
+    <section className="relative w-full h-screen overflow-y-auto overflow-x-hidden bg-[rgba(255,255,255,0.01)] border-t border-b border-[var(--line)]">
+      {/* Section Header */}
+      <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+        className="sticky top-8 left-48 flex items-center gap-6 mb-16 z-20"
+      >
+        <span className="font-['DM_Mono'] text-[11px] text-[var(--gold)] tracking-[2px]">03 —</span>
+        <h2 className="font-['Bebas_Neue'] text-[clamp(42px,6vw,72px)] tracking-[2px] leading-none">
+          Experience
+        </h2>
+        <div className="w-48 h-[1px] bg-[var(--line)]" />
+      </motion.div>
 
-        <div className="space-y-6">
-          {experiences.map(exp => (
-            <div key={exp.id} className="p-4 rounded-lg border border-emerald-800/10 bg-slate-800/20">
-              <div className="flex items-start justify-between">
-                <div>
-                  <div className="text-lg font-semibold text-white">{exp.title}</div>
-                  <div className="text-sm text-emerald-200">{exp.company} • {exp.period} • {exp.location}</div>
-                </div>
-                <div className="text-sm text-emerald-300">{exp.level}</div>
+      {/* Experience List */}
+      <div className="max-w-[1200px] mx-auto px-48 pb-20">
+        {experiences.map((exp, idx) => (
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 * idx }}
+            whileHover={{ x: 16, backgroundColor: 'rgba(201,168,76,0.02)' }}
+            className="group relative grid grid-cols-[220px_1fr] gap-12 py-12 border-b border-[var(--line)] transition-all"
+          >
+            {/* Left Border Indicator */}
+            <div className="absolute left-[-48px] top-0 bottom-0 w-[2px] bg-transparent group-hover:bg-[var(--gold)] transition-all" />
+
+            {/* Left Column */}
+            <div>
+              <div className="font-['DM_Mono'] text-[11px] text-[var(--gold)] tracking-[1px] mb-2">
+                {exp.period}
               </div>
-
-              <p className="mt-3 text-gray-200 text-sm">{exp.description}</p>
-
-              <div className="mt-3 flex flex-wrap gap-2">
-                {exp.skills.map(skill => (
-                  <span key={skill} className="px-2 py-1 text-xs rounded bg-emerald-700/10 text-emerald-200">{skill}</span>
-                ))}
+              <div className="text-[11px] tracking-[2px] uppercase text-[var(--warm-gray)] font-medium">
+                {exp.type}
               </div>
             </div>
-          ))}
-        </div>
-      </div>  
-             <Footer />
 
+            {/* Right Column */}
+            <div>
+              <h3 className="font-['DM_Serif_Display'] text-[22px] text-[var(--off-white)] mb-1">
+                {exp.role}
+              </h3>
+              <div className="text-[13px] text-[var(--gold)] tracking-[1px] mb-5">
+                {exp.company}
+              </div>
+
+              <ul className="space-y-[10px]">
+                {exp.bullets.map((bullet, bulletIdx) => (
+                  <motion.li
+                    key={bulletIdx}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 + (bulletIdx * 0.1) }}
+                    className="relative pl-5 text-[14px] text-[var(--warm-gray)] leading-[1.7]"
+                  >
+                    <span className="absolute left-0 text-[var(--gold)] text-[16px]">›</span>
+                    {bullet}
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Decorative Icon */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 0.05, scale: 1 }}
+        transition={{ duration: 1.5, delay: 0.5 }}
+        className="absolute bottom-20 right-40"
+      >
+        <Briefcase size={200} className="text-[var(--gold)]" />
+      </motion.div>
     </section>
- 
   );
 };
 

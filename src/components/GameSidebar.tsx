@@ -75,23 +75,32 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
   const getProgressInLevel = (points: number) => (points % 1000) / 1000 * 100;
 
   return (
-    <motion.div
-      initial={{ x: 300, opacity: 0 }}
-      animate={{ 
-        x: 0, 
-        opacity: 1,
-        width: isExpanded ? 320 : 60
-      }}
-      className="fixed right-4 top-20 bg-slate-900/90 dark:bg-gray-900/80 backdrop-blur-2xl rounded-xl border border-neon-purple/30 shadow-2xl z-40 max-h-[calc(100vh-120px)] overflow-hidden"
-      style={{
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-      }}
-    >
+    <>
+      {/* Mobile toggle button */}
+      <button
+        onClick={() => setIsExpanded(prev => !prev)}
+        className="md:hidden fixed bottom-4 right-4 z-50 w-12 h-12 rounded-full bg-slate-900/90 border border-neon-purple/50 flex items-center justify-center shadow-xl"
+      >
+        <Trophy size={20} className="text-neon-teal" />
+      </button>
+
+      {/* Sidebar — hidden on mobile unless expanded */}
+      <motion.div
+        initial={{ x: 300, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        className={`fixed right-4 top-20 bg-slate-900/95 dark:bg-gray-900/95 backdrop-blur-2xl rounded-xl border border-emerald-500/30 shadow-2xl z-40 max-h-[calc(100vh-120px)] overflow-hidden
+          ${isExpanded ? 'hidden md:block' : 'hidden md:block'}
+          md:block ${isExpanded ? 'w-80' : 'w-16'}`}
+        style={{ 
+          backdropFilter: 'blur(20px)', 
+          WebkitBackdropFilter: 'blur(20px)',
+          transition: 'width 0.3s ease-in-out'
+        }}
+      >
       {/* Collapse/Expand Toggle */}
       <motion.button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="absolute top-4 right-4 p-2 rounded-lg bg-gradient-to-r from-neon-purple/20 to-neon-teal/20 text-neon-teal hover:scale-110 transition-transform z-10"
+        className="absolute top-4 right-4 p-2 rounded-lg bg-gradient-to-r from-emerald-500/20 to-sky-500/20 text-emerald-400 hover:scale-110 transition-transform z-10"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
@@ -108,7 +117,7 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
             className="overflow-y-auto max-h-[calc(100vh-120px)]"
           >
             {/* Header */}
-            <div className="p-4 border-b border-neon-purple/30">
+            <div className="p-4 border-b border-emerald-500/30">
               <div className="flex items-center gap-3 mb-2 pr-8">
                 {currentDetails.icon}
                 <h3 className="text-lg font-bold text-white">{currentDetails.title}</h3>
@@ -117,10 +126,10 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
             </div>
 
             {/* Current XP */}
-            <div className="p-4 border-b border-neon-purple/30">
+            <div className="p-4 border-b border-emerald-500/30">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-white">Level {getLevel(totalPoints)}</span>
-                <span className="text-lg font-bold bg-gradient-to-r from-neon-purple to-neon-teal bg-clip-text text-transparent">
+                <span className="text-lg font-bold bg-gradient-to-r from-emerald-400 to-sky-400 bg-clip-text text-transparent">
                   {totalPoints.toLocaleString()} XP
                 </span>
               </div>
@@ -140,7 +149,7 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
             </div>
 
             {/* Tips */}
-            <div className="p-4 border-b border-neon-purple/30">
+            <div className="p-4 border-b border-emerald-500/30">
               <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
                 💡 Pro Tips
               </h4>
@@ -243,7 +252,8 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+      </motion.div>
+    </>
   );
 };
 

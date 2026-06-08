@@ -1,33 +1,64 @@
-
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import HeroSection from '../components/HeroSection';
-import Navbar from '../components/Navbar';
 import AboutSection from '../components/AboutSection';
 import SkillsSection from '../components/SkillsSection';
 import ProjectsSection from '../components/ProjectsSection';
 import ExperienceSection from '../components/ExperienceSection';
 import ContactSection from '../components/ContactSection';
-import FloatingParticles from '../components/FloatingParticles';
 import CustomCursor from '../components/CustomCursor';
+import VerticalNav from '../components/VerticalNav';
 import GameSidebar from '../components/GameSidebar';
 import XPNotification from '../components/XPNotification';
 
 const Index = () => {
-  const [activeSection, setActiveSection] = useState('hero');
-  const [totalPoints, setTotalPoints] = useState(1000); // Start with 1000 points
+  const [activeSection, setActiveSection] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [totalPoints, setTotalPoints] = useState(0);
   const [notification, setNotification] = useState({ show: false, message: '', points: 0 });
-  const [hasShownWelcome, setHasShownWelcome] = useState(false);
+  const [visitedSections, setVisitedSections] = useState<Set<number>>(new Set([0]));
+  const welcomeShownRef = useRef(false);
 
-  // Show welcome notification on page load
+  const sections = [
+    { id: 'hero', component: HeroSection, name: 'Hero' },
+    { id: 'about', component: AboutSection, name: 'About' },
+    { id: 'skills', component: SkillsSection, name: 'Skills' },
+    { id: 'projects', component: ProjectsSection, name: 'Projects' },
+    { id: 'experience', component: ExperienceSection, name: 'Experience' },
+    { id: 'contact', component: ContactSection, name: 'Contact' },
+  ];
+
+  // Welcome bonus
   useEffect(() => {
-    if (!hasShownWelcome) {
+    if (!welcomeShownRef.current) {
+      welcomeShownRef.current = true;
       setTimeout(() => {
-        showXPNotification(1000, 'Welcome! Starting bonus received!');
-        setHasShownWelcome(true);
+        setTotalPoints(1000);
+        setNotification({ show: true, message: 'Welcome! Starting bonus received!', points: 1000 });
       }, 1000);
     }
-  }, [hasShownWelcome]);
+  }, []);
+
+  // Update progress when section changes
+  useEffect(() => {
+    const progress = ((activeSection + 1) / sections.length) * 100;
+    setScrollProgress(progress);
+
+    // Award points for visiting new sections
+    if (!visitedSections.has(activeSection)) {
+      const newVisited = new Set(visitedSections);
+      newVisited.add(activeSection);
+      setVisitedSections(newVisited);
+      
+      const points = 500;
+      setTotalPoints(prev => prev + points);
+      setNotification({ 
+        show: true, 
+        message: `${sections[activeSection].name} section unlocked!`, 
+        points 
+      });
+    }
+  }, [activeSection, sections, visitedSections]);
 
   const showXPNotification = (points: number, message: string) => {
     setTotalPoints(prev => prev + points);
@@ -38,77 +69,80 @@ const Index = () => {
     setNotification(prev => ({ ...prev, show: false }));
   };
 
-  const handleNavigation = (sectionId: string) => {
-    setActiveSection(sectionId);
+  const handleNavigate = (index: number) => {
+    setActiveSection(index);
   };
 
-  // Listen for cross-component navigation events (e.g., from HeroSection modal)
-  useEffect(() => {
-    const onGoToSection = (e: Event) => {
-      const custom = e as CustomEvent<string>;
-      if (custom?.detail) {
-        setActiveSection(custom.detail);
-      }
-    };
-    window.addEventListener('go-to-section', onGoToSection as EventListener);
-    return () => window.removeEventListener('go-to-section', onGoToSection as EventListener);
-  }, []);
-
-  const renderCurrentSection = () => {
-    switch (activeSection) {
-      case 'hero':
-        return <HeroSection onEarnPoints={showXPNotification} />;
-      case 'about':
-        return <AboutSection onEarnPoints={showXPNotification} />;
-      case 'skills':
-        return <SkillsSection onEarnPoints={showXPNotification} />;
-      case 'projects':
-        return <ProjectsSection onEarnPoints={showXPNotification} />;
-      case 'experience':
-        return <ExperienceSection onEarnPoints={showXPNotification} />;
-      case 'contact':
-        return <ContactSection onEarnPoints={showXPNotification} />;
-      default:
-        return <HeroSection onEarnPoints={showXPNotification} />;
-    }
-  };
+  const CurrentSection = sections[activeSection].component;
 
   return (
-    <div className="min-h-screen custom-cursor bg-background dark:bg-dark-primary">
+    <div className="relative w-full h-screen overflow-hidden bg-[var(--black)]">
       <CustomCursor />
-      <FloatingParticles />
       
-      <Navbar 
-        activeSection={activeSection} 
-        onNavigate={handleNavigation}
-        totalPoints={totalPoints}
-        onEarnPoints={showXPNotification}
-      />
-      
-      <GameSidebar 
-        totalPoints={totalPoints}
-        currentSection={activeSection}
+      {/* Vertical Navigation */}
+      <VerticalNav 
+        sections={sections.map(s => s.id)}
+        activeSection={activeSection}
+        onNavigate={handleNavigate}
+        scrollProgress={scrollProgress}
       />
 
+      {/* Game Sidebar */}
+      <GameSidebar 
+        totalPoints={totalPoints}
+        currentSection={sections[activeSection].id}
+      />
+
+      {/* XP Notification */}
       <XPNotification
         message={notification.message}
         points={notification.points}
         isVisible={notification.show}
         onHide={hideNotification}
       />
-      
-      <main className="relative z-10 pt-16">
+
+      {/* Main Content */}
+      <AnimatePresence mode="wait">
         <motion.div
           key={activeSection}
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -50 }}
-          transition={{ duration: 0.5 }}
-          className="min-h-screen"
+          initial={{ opacity: 0, y: 100, rotateX: -10 }}
+          animate={{ opacity: 1, y: 0, rotateX: 0 }}
+          exit={{ opacity: 0, y: -100, rotateX: 10 }}
+          transition={{
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1]
+          }}
+          className="w-full h-screen"
+          style={{
+            transformStyle: 'preserve-3d',
+            perspective: '1000px'
+          }}
         >
-          {renderCurrentSection()}
+          <CurrentSection onEarnPoints={showXPNotification} />
         </motion.div>
-      </main>
+      </AnimatePresence>
+
+      {/* Section Indicators */}
+      <div className="fixed right-12 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-4">
+        {sections.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => handleNavigate(idx)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              idx === activeSection 
+                ? 'bg-[var(--gold)] h-12' 
+                : 'bg-[var(--line)] hover:bg-[var(--warm-gray)]'
+            }`}
+            aria-label={`Go to section ${idx + 1}`}
+          />
+        ))}
+      </div>
+
+      {/* Navigation Hint */}
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 font-['DM_Mono'] text-[10px] text-[var(--warm-gray)] tracking-[3px] uppercase flex items-center gap-3">
+        <span>Use navigation to explore</span>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-[var(--gold)] to-transparent animate-pulse" />
+      </div>
     </div>
   );
 };
