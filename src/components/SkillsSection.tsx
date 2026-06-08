@@ -40,19 +40,19 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ onEarnPoints }) => {
   ];
 
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative w-full h-screen overflow-y-auto overflow-x-hidden bg-[var(--black)] py-20 md:py-24">
       {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
-        className="absolute top-32 left-48 flex items-center gap-6"
+        className="px-6 md:px-12 lg:pl-48 flex items-center gap-3 md:gap-6 mb-12 sticky top-0 bg-[var(--black)] pt-4 pb-4 z-20"
       >
-        <span className="font-['DM_Mono'] text-[11px] text-[var(--gold)] tracking-[2px]">02 —</span>
-        <h2 className="font-['Bebas_Neue'] text-[clamp(42px,6vw,72px)] tracking-[2px] leading-none">
+        <span className="font-['DM_Mono'] text-[10px] md:text-[11px] text-[var(--gold)] tracking-[2px]">02 —</span>
+        <h2 className="font-['Bebas_Neue'] text-[clamp(32px,6vw,72px)] tracking-[2px] leading-none">
           Skills
         </h2>
-        <div className="w-48 h-[1px] bg-[var(--line)]" />
+        <div className="w-16 md:w-48 h-[1px] bg-[var(--line)]" />
       </motion.div>
 
       {/* Skills Grid */}
@@ -60,7 +60,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ onEarnPoints }) => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="relative z-10 grid grid-cols-3 gap-[2px] bg-[var(--line)] border border-[var(--line)] max-w-[1200px] mx-auto mt-20"
+        className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2px] bg-[var(--line)] border border-[var(--line)] w-full max-w-[1100px] mx-auto px-6 md:px-12 lg:px-0 mb-20"
       >
         {skills.map((skill, idx) => (
           <motion.div
@@ -69,10 +69,10 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ onEarnPoints }) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.1 * idx }}
             whileHover={{ backgroundColor: 'rgba(201,168,76,0.04)' }}
-            className="bg-[var(--black)] p-10 transition-all"
+            className="bg-[var(--black)] p-6 md:p-8 lg:p-10 transition-all"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <span className="font-['DM_Mono'] text-[10px] tracking-[3px] uppercase text-[var(--gold)]">
+            <div className="flex items-center gap-3 mb-5 md:mb-6">
+              <span className="font-['DM_Mono'] text-[9px] md:text-[10px] tracking-[2px] md:tracking-[3px] uppercase text-[var(--gold)]">
                 {skill.category}
               </span>
               <div className="flex-1 h-[1px] bg-[var(--line)]" />
@@ -88,7 +88,9 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ onEarnPoints }) => {
                     color: 'var(--gold)',
                     backgroundColor: 'rgba(201,168,76,0.06)'
                   }}
-                  className={`py-[6px] px-[14px] border text-[12px] font-['DM_Mono'] font-light transition-all cursor-default ${
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => onEarnPoints?.(25, `Skill unlocked: ${tag}!`)}
+                  className={`py-[5px] md:py-[6px] px-[12px] md:px-[14px] border text-[11px] md:text-[12px] font-['DM_Mono'] font-light transition-all cursor-pointer ${
                     skill.featured.includes(tag)
                       ? 'border-[rgba(201,168,76,0.5)] text-[var(--off-white)]'
                       : 'border-[rgba(201,168,76,0.2)] text-[var(--warm-gray)]'
@@ -102,12 +104,12 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ onEarnPoints }) => {
         ))}
       </motion.div>
 
-      {/* Decorative Background */}
+      {/* Decorative Background - Hidden on mobile */}
       <motion.div
         initial={{ opacity: 0, rotate: -45 }}
         animate={{ opacity: 0.03, rotate: 0 }}
         transition={{ duration: 2, delay: 0.5 }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-['Bebas_Neue'] text-[300px] leading-none text-[var(--gold)]"
+        className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-['Bebas_Neue'] text-[300px] leading-none text-[var(--gold)] select-none pointer-events-none"
       >
         S
       </motion.div>

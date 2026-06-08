@@ -36,7 +36,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
   };
 
   return (
-    <section className="relative w-full h-screen flex items-end overflow-hidden">
+    <section className="relative w-full h-screen flex items-end overflow-hidden px-6 lg:px-0">
       {/* Background */}
       <div className="absolute inset-0 bg-[var(--black)]">
         <div 
@@ -60,12 +60,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
         />
       </div>
 
-      {/* Large Number Background */}
+      {/* Large Number Background - Hidden on mobile */}
       <motion.div
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.5, delay: 0.5 }}
-        className="absolute top-1/2 right-12 -translate-y-1/2 font-['Bebas_Neue'] text-[clamp(200px,25vw,380px)] leading-none tracking-[-10px] select-none"
+        className="hidden lg:block absolute top-1/2 right-12 -translate-y-1/2 font-['Bebas_Neue'] text-[clamp(200px,25vw,380px)] leading-none tracking-[-10px] select-none"
         style={{
           color: 'transparent',
           WebkitTextStroke: '1px rgba(201,168,76,0.08)'
@@ -74,14 +74,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
         02
       </motion.div>
 
-      {/* Profile Image with 3D effect */}
+      {/* Profile Image with 3D effect - Responsive */}
       <motion.div
         style={{
           rotateX,
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="absolute top-1/4 right-[20%] w-[400px] h-[500px] z-10"
+        className="hidden md:block absolute top-1/4 right-[10%] lg:right-[20%] w-[250px] h-[320px] md:w-[300px] md:h-[380px] lg:w-[400px] lg:h-[500px] z-10"
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.8, z: -100 }}
@@ -116,15 +116,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-20 max-w-[900px] pb-20 pl-48">
+      <div className="relative z-20 w-full max-w-[900px] pb-16 lg:pb-20 lg:pl-48 mt-20 lg:mt-0">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex items-center gap-3 mb-8"
+          className="flex items-center gap-3 mb-6 lg:mb-8"
         >
-          <div className="w-8 h-[1px] bg-[var(--gold)]" />
-          <span className="font-['DM_Mono'] text-[11px] tracking-[3px] text-[var(--gold)] uppercase">
+          <div className="w-6 lg:w-8 h-[1px] bg-[var(--gold)]" />
+          <span className="font-['DM_Mono'] text-[9px] lg:text-[11px] tracking-[2px] lg:tracking-[3px] text-[var(--gold)] uppercase">
             Senior Software Engineer & Product Designer
           </span>
         </motion.div>
@@ -133,7 +133,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="font-['Bebas_Neue'] text-[clamp(72px,11vw,160px)] leading-[0.9] tracking-[-2px] mb-8"
+          className="font-['Bebas_Neue'] text-[clamp(48px,10vw,160px)] leading-[0.9] tracking-[-2px] mb-6 lg:mb-8"
         >
           <span className="block">Besufkad</span>
           <span 
@@ -151,7 +151,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="max-w-[520px] text-[15px] leading-[1.8] text-[var(--warm-gray)] mb-12"
+          className="max-w-[520px] text-[13px] lg:text-[15px] leading-[1.8] text-[var(--warm-gray)] mb-8 lg:mb-12"
         >
           Full-Stack & Flutter Engineer based in Addis Ababa — architecting scalable systems across mobile, web, and cloud. 
           Product designer with a passion for creating intuitive user experiences. 2+ years delivering production-grade platforms for thousands of users.
@@ -162,7 +162,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="flex gap-12 mb-14"
+          className="grid grid-cols-2 md:flex gap-6 lg:gap-12 mb-10 lg:mb-14"
         >
           {[
             { num: '10K+', label: 'Platform Users' },
@@ -175,10 +175,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
               whileHover={{ y: -5, scale: 1.05 }}
               transition={{ type: 'spring', stiffness: 400, damping: 10 }}
             >
-              <div className="font-['Bebas_Neue'] text-[48px] leading-none text-[var(--gold)]">
+              <div className="font-['Bebas_Neue'] text-[36px] lg:text-[48px] leading-none text-[var(--gold)]">
                 {stat.num}
               </div>
-              <div className="font-['Outfit'] text-[11px] tracking-[2px] uppercase text-[var(--warm-gray)] font-medium mt-1">
+              <div className="font-['Outfit'] text-[9px] lg:text-[11px] tracking-[1px] lg:tracking-[2px] uppercase text-[var(--warm-gray)] font-medium mt-1">
                 {stat.label}
               </div>
             </motion.div>
@@ -190,7 +190,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="flex gap-5 items-center"
+          className="flex flex-col sm:flex-row gap-4 lg:gap-5 items-stretch sm:items-center mb-8 lg:mb-0"
         >
           <motion.a
             href="#projects"
@@ -200,7 +200,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
             }}
             whileHover={{ y: -3, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="bg-[var(--gold)] text-[var(--black)] py-[14px] px-9 font-['Outfit'] font-semibold text-[12px] tracking-[2px] uppercase transition-all hover:bg-[var(--gold-light)] hover:shadow-lg hover:shadow-[var(--gold)]/30"
+            className="bg-[var(--gold)] text-[var(--black)] py-3 lg:py-[14px] px-6 lg:px-9 font-['Outfit'] font-semibold text-[11px] lg:text-[12px] tracking-[2px] uppercase transition-all hover:bg-[var(--gold-light)] hover:shadow-lg hover:shadow-[var(--gold)]/30 text-center"
             style={{
               clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
             }}
@@ -213,18 +213,18 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
             onClick={() => handleInteraction(150, 'Initiating contact!')}
             whileHover={{ y: -3, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="border border-[var(--line)] text-[var(--gold)] py-[14px] px-9 font-['Outfit'] font-medium text-[12px] tracking-[2px] uppercase transition-all hover:border-[var(--gold)] hover:bg-[rgba(201,168,76,0.08)]"
+            className="border border-[var(--line)] text-[var(--gold)] py-3 lg:py-[14px] px-6 lg:px-9 font-['Outfit'] font-medium text-[11px] lg:text-[12px] tracking-[2px] uppercase transition-all hover:border-[var(--gold)] hover:bg-[rgba(201,168,76,0.08)] text-center"
           >
             Get In Touch
           </motion.a>
         </motion.div>
 
-        {/* Social Links */}
+        {/* Social Links - Hidden on small mobile */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
-          className="flex gap-6 mt-10"
+          className="hidden sm:flex gap-4 lg:gap-6 lg:mt-10"
         >
           {[
             { icon: Mail, href: 'mailto:ayebesufkad@gmail.com', label: 'Email' },

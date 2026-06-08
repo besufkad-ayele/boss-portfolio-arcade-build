@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Phone } from 'lucide-react';
+import ContactDialog from './ContactDialog';
 
 interface ContactSectionProps {
   onEarnPoints?: (points: number, message: string) => void;
 }
 
 const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const contacts = [
     {
       icon: Mail,
@@ -90,6 +92,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
               href={contact.href}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => onEarnPoints?.(100, `Connecting via ${contact.label}!`)}
               whileHover={{ y: -10, scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="group flex flex-col items-center gap-2 transition-all"
@@ -110,20 +113,23 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
         </motion.div>
 
         {/* CTA Button */}
-        <motion.a
-          href="mailto:ayebesufkad@gmail.com"
+        <motion.button
+          onClick={() => {
+            setIsDialogOpen(true);
+            onEarnPoints?.(100, 'Opening contact dialog!');
+          }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           whileHover={{ y: -3, scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="inline-block bg-[var(--gold)] text-[var(--black)] py-4 px-12 font-['Outfit'] text-[13px] font-semibold tracking-[2px] uppercase transition-all hover:bg-[var(--gold-light)] hover:shadow-xl hover:shadow-[var(--gold)]/30"
+          className="bg-[var(--gold)] text-[var(--black)] py-4 px-12 font-['Outfit'] text-[13px] font-semibold tracking-[2px] uppercase transition-all hover:bg-[var(--gold-light)] hover:shadow-xl hover:shadow-[var(--gold)]/30"
           style={{
             clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
           }}
         >
           Start a Conversation
-        </motion.a>
+        </motion.button>
 
         {/* Footer */}
         <motion.div
@@ -137,12 +143,19 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
         </motion.div>
       </div>
 
+      {/* Contact Dialog */}
+      <ContactDialog 
+        isOpen={isDialogOpen} 
+        onClose={() => setIsDialogOpen(false)}
+        onEarnPoints={onEarnPoints}
+      />
+
       {/* Decorative Background Elements */}
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 0.05, scale: 1 }}
         transition={{ duration: 2, delay: 0.5 }}
-        className="absolute top-20 left-20 font-['Bebas_Neue'] text-[250px] leading-none text-[var(--gold)]"
+        className="absolute top-20 left-20 font-['Bebas_Neue'] text-[250px] leading-none text-[var(--gold)] select-none pointer-events-none"
       >
         C
       </motion.div>
@@ -151,7 +164,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 0.05, x: 0 }}
         transition={{ duration: 2, delay: 0.7 }}
-        className="absolute bottom-20 right-20 font-['Bebas_Neue'] text-[180px] leading-none text-[var(--gold)]"
+        className="absolute bottom-20 right-20 font-['Bebas_Neue'] text-[180px] leading-none text-[var(--gold)] select-none pointer-events-none"
       >
         06
       </motion.div>

@@ -56,6 +56,59 @@ body::before {
   }
 }
 
+/* Responsive utility classes */
+@layer utilities {
+  /* Mobile padding */
+  @media (max-width: 768px) {
+    .section-padding {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    
+    .content-max-width {
+      max-width: 100%;
+    }
+  }
+  
+  /* Tablet padding */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .section-padding {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    
+    .content-max-width {
+      max-width: 90%;
+    }
+  }
+  
+  /* Desktop padding */
+  @media (min-width: 1025px) {
+    .section-padding {
+      padding-left: 12rem;
+      padding-right: 12rem;
+    }
+    
+    .content-max-width {
+      max-width: 1200px;
+    }
+  }
+}
+
+/* Hide elements on mobile */
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+/* Hide elements on desktop */
+@media (min-width: 769px) {
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
 /* Gaming theme design system */
 
 @layer base {

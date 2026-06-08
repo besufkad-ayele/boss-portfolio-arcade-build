@@ -8,8 +8,11 @@ import ExperienceSection from '../components/ExperienceSection';
 import ContactSection from '../components/ContactSection';
 import CustomCursor from '../components/CustomCursor';
 import VerticalNav from '../components/VerticalNav';
+import MobileNav from '../components/MobileNav';
 import GameSidebar from '../components/GameSidebar';
 import XPNotification from '../components/XPNotification';
+import ContactDialog from '../components/ContactDialog';
+import FloatingContactButton from '../components/FloatingContactButton';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState(0);
@@ -17,6 +20,7 @@ const Index = () => {
   const [totalPoints, setTotalPoints] = useState(0);
   const [notification, setNotification] = useState({ show: false, message: '', points: 0 });
   const [visitedSections, setVisitedSections] = useState<Set<number>>(new Set([0]));
+  const [isContactDialogOpen, setIsContactDialogOpen] = useState(false);
   const welcomeShownRef = useRef(false);
 
   const sections = [
@@ -79,19 +83,31 @@ const Index = () => {
     <div className="relative w-full h-screen overflow-hidden bg-[var(--black)]">
       <CustomCursor />
       
-      {/* Vertical Navigation */}
-      <VerticalNav 
+      {/* Desktop Vertical Navigation */}
+      <div className="hidden lg:block">
+        <VerticalNav 
+          sections={sections.map(s => s.id)}
+          activeSection={activeSection}
+          onNavigate={handleNavigate}
+          scrollProgress={scrollProgress}
+        />
+      </div>
+
+      {/* Mobile Navigation */}
+      <MobileNav
         sections={sections.map(s => s.id)}
         activeSection={activeSection}
         onNavigate={handleNavigate}
         scrollProgress={scrollProgress}
       />
 
-      {/* Game Sidebar */}
-      <GameSidebar 
-        totalPoints={totalPoints}
-        currentSection={sections[activeSection].id}
-      />
+      {/* Game Sidebar - Hidden on mobile */}
+      <div className="hidden md:block">
+        <GameSidebar 
+          totalPoints={totalPoints}
+          currentSection={sections[activeSection].id}
+        />
+      </div>
 
       {/* XP Notification */}
       <XPNotification
@@ -122,8 +138,8 @@ const Index = () => {
         </motion.div>
       </AnimatePresence>
 
-      {/* Section Indicators */}
-      <div className="fixed right-12 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-4">
+      {/* Section Indicators - Hidden on mobile */}
+      <div className="hidden lg:flex fixed right-12 top-1/2 -translate-y-1/2 z-40 flex-col gap-4">
         {sections.map((_, idx) => (
           <button
             key={idx}
@@ -138,11 +154,24 @@ const Index = () => {
         ))}
       </div>
 
-      {/* Navigation Hint */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 font-['DM_Mono'] text-[10px] text-[var(--warm-gray)] tracking-[3px] uppercase flex items-center gap-3">
+      {/* Navigation Hint - Hidden on mobile */}
+      <div className="hidden lg:flex fixed bottom-8 left-1/2 -translate-x-1/2 z-40 font-['DM_Mono'] text-[10px] text-[var(--warm-gray)] tracking-[3px] uppercase items-center gap-3">
         <span>Use navigation to explore</span>
         <div className="w-[1px] h-12 bg-gradient-to-b from-[var(--gold)] to-transparent animate-pulse" />
       </div>
+
+      {/* Floating Contact Button */}
+      <FloatingContactButton onClick={() => {
+        setIsContactDialogOpen(true);
+        showXPNotification(100, 'Opening quick contact!');
+      }} />
+
+      {/* Global Contact Dialog */}
+      <ContactDialog 
+        isOpen={isContactDialogOpen} 
+        onClose={() => setIsContactDialogOpen(false)}
+        onEarnPoints={showXPNotification}
+      />
     </div>
   );
 };

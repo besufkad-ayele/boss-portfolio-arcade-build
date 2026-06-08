@@ -31,19 +31,19 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
   };
 
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-[rgba(255,255,255,0.015)] border-t border-b border-[var(--line)]">
+    <section className="relative w-full min-h-screen lg:h-screen flex items-center justify-center overflow-hidden bg-[rgba(255,255,255,0.015)] border-t border-b border-[var(--line)] py-20 lg:py-0">
       {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
-        className="absolute top-32 left-48 flex items-center gap-6"
+        className="absolute top-20 md:top-24 left-6 md:left-12 lg:left-48 flex items-center gap-3 md:gap-6 z-20"
       >
-        <span className="font-['DM_Mono'] text-[11px] text-[var(--gold)] tracking-[2px]">01 —</span>
-        <h2 className="font-['Bebas_Neue'] text-[clamp(42px,6vw,72px)] tracking-[2px] leading-none">
+        <span className="font-['DM_Mono'] text-[10px] md:text-[11px] text-[var(--gold)] tracking-[2px]">01 —</span>
+        <h2 className="font-['Bebas_Neue'] text-[clamp(32px,6vw,72px)] tracking-[2px] leading-none">
           About
         </h2>
-        <div className="w-48 h-[1px] bg-[var(--line)]" />
+        <div className="w-16 md:w-48 h-[1px] bg-[var(--line)]" />
       </motion.div>
 
       {/* Content Grid */}
@@ -51,26 +51,26 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 grid grid-cols-2 gap-20 max-w-[1200px] mx-auto px-48 mt-20"
+        className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 w-full max-w-[1100px] mx-auto px-6 md:px-12 lg:px-48 mt-20 lg:mt-0"
       >
         {/* Left Column - Text */}
-        <motion.div variants={itemVariants} className="space-y-6">
-          <p className="text-[16px] leading-[1.9] text-[var(--warm-gray)]">
+        <motion.div variants={itemVariants} className="space-y-4 lg:space-y-5 flex flex-col justify-center">
+          <p className="text-[14px] md:text-[15px] leading-[1.7] lg:leading-[1.8] text-[var(--warm-gray)]">
             I'm an <strong className="text-[var(--off-white)] font-medium">Intermediate-to-Senior Flutter and Full-Stack Developer</strong> with a track record of shipping products that scale. My work spans SaaS, LMS, fintech, and hospitality — always with a focus on clean architecture and performance.
           </p>
-          <p className="text-[16px] leading-[1.9] text-[var(--warm-gray)]">
+          <p className="text-[14px] md:text-[15px] leading-[1.7] lg:leading-[1.8] text-[var(--warm-gray)]">
             Specialized in <strong className="text-[var(--off-white)] font-medium">Flutter (Riverpod), Next.js, NestJS, and Python (AI/ML)</strong>, with production deployments across AWS, Vercel, and Google Cloud. I bring engineering discipline and creative problem-solving to every system I build.
           </p>
-          <p className="text-[16px] leading-[1.9] text-[var(--warm-gray)]">
+          <p className="text-[14px] md:text-[15px] leading-[1.7] lg:leading-[1.8] text-[var(--warm-gray)]">
             As a <strong className="text-[var(--off-white)] font-medium">Product Designer</strong>, I craft intuitive user experiences that bridge the gap between complex functionality and delightful interaction. My design philosophy centers on user-centric solutions backed by data and iterative testing.
           </p>
-          <p className="text-[16px] leading-[1.9] text-[var(--warm-gray)]">
+          <p className="text-[14px] md:text-[15px] leading-[1.7] lg:leading-[1.8] text-[var(--warm-gray)]">
             Currently a Full-Stack Developer at <strong className="text-[var(--off-white)] font-medium">i-Capital Africa Institute</strong>, where I lead development of multi-platform products used by 200+ active fellows across 4+ organizations.
           </p>
         </motion.div>
 
         {/* Right Column - Highlights */}
-        <motion.div variants={itemVariants} className="flex flex-col gap-6">
+        <motion.div variants={itemVariants} className="flex flex-col gap-4 lg:gap-5 justify-center">
           {[
             { num: '10K+', label: 'Users on Majeat food delivery platform' },
             { num: '200+', label: 'Active learners on MasterBuilderLab LMS' },
@@ -79,19 +79,20 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
             <motion.div
               key={idx}
               whileHover={{ scale: 1.03, x: 10 }}
+              onClick={() => onEarnPoints?.(100, `Achievement discovered: ${highlight.num}!`)}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              className="relative border border-[var(--line)] p-7 transition-all hover:border-[var(--gold)]"
+              className="relative border border-[var(--line)] p-5 md:p-6 transition-all hover:border-[var(--gold)] cursor-pointer"
               style={{
-                clipPath: 'polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%)'
+                clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)'
               }}
             >
               {/* Corner accent */}
-              <div className="absolute top-0 right-0 w-0 h-0 border-l-[16px] border-l-transparent border-t-[16px] border-t-[var(--gold)] opacity-50" />
+              <div className="absolute top-0 right-0 w-0 h-0 border-l-[12px] border-l-transparent border-t-[12px] border-t-[var(--gold)] opacity-50" />
               
-              <div className="font-['Bebas_Neue'] text-[40px] leading-none text-[var(--gold)] mb-1">
+              <div className="font-['Bebas_Neue'] text-[32px] md:text-[36px] leading-none text-[var(--gold)] mb-1">
                 {highlight.num}
               </div>
-              <div className="font-['Outfit'] text-[11px] tracking-[2px] uppercase text-[var(--warm-gray)] font-medium">
+              <div className="font-['Outfit'] text-[10px] md:text-[11px] tracking-[1px] uppercase text-[var(--warm-gray)] font-medium leading-[1.5]">
                 {highlight.label}
               </div>
             </motion.div>
@@ -99,12 +100,12 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
         </motion.div>
       </motion.div>
 
-      {/* Decorative Elements */}
+      {/* Decorative Elements - Hidden on mobile */}
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 0.05, scale: 1 }}
         transition={{ duration: 1.5, delay: 0.5 }}
-        className="absolute bottom-20 right-40 font-['Bebas_Neue'] text-[200px] leading-none text-[var(--gold)]"
+        className="hidden lg:block absolute bottom-16 right-32 font-['Bebas_Neue'] text-[180px] leading-none text-[var(--gold)] select-none pointer-events-none"
       >
         A
       </motion.div>
