@@ -2,7 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Phone } from 'lucide-react';
 
-const ContactSection = () => {
+interface ContactSectionProps {
+  onEarnPoints?: (points: number, message: string) => void;
+}
+
+const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
   const contacts = [
     {
       icon: Mail,
