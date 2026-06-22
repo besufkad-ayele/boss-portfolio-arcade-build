@@ -6,6 +6,9 @@ import AboutSection from '../components/AboutSection';
 import SkillsSection from '../components/SkillsSection';
 import ProjectsSection from '../components/ProjectsSection';
 import ExperienceSection from '../components/ExperienceSection';
+import PathSection from '../components/PathSection';
+import MindSection from '../components/MindSection';
+import BlogSection from '../components/BlogSection';
 import ContactSection from '../components/ContactSection';
 import CustomCursor from '../components/CustomCursor';
 import VerticalNav from '../components/VerticalNav';
@@ -31,6 +34,9 @@ const Index = () => {
     { id: 'skills', component: SkillsSection, name: 'Skills' },
     { id: 'projects', component: ProjectsSection, name: 'Projects' },
     { id: 'experience', component: ExperienceSection, name: 'Experience' },
+    { id: 'path', component: PathSection, name: 'Path' },
+    { id: 'mind', component: MindSection, name: 'Mind' },
+    { id: 'blog', component: BlogSection, name: 'Writings' },
     { id: 'contact', component: ContactSection, name: 'Contact' },
   ];
 
@@ -97,7 +103,7 @@ const Index = () => {
       <CustomCursor />
       
       {/* Desktop Vertical Navigation */}
-      <div className="hidden lg:block">
+      <div className="hidden lg:block z-40">
         <VerticalNav 
           sections={sections.map(s => s.id)}
           activeSection={activeSection}
@@ -152,7 +158,7 @@ const Index = () => {
       </AnimatePresence>
 
       {/* Section Indicators - Hidden on mobile, offset from game sidebar */}
-      <div className="hidden lg:flex fixed right-6 xl:right-[360px] top-1/2 -translate-y-1/2 z-40 flex-col gap-4">
+      <div className="hidden lg:flex fixed right-[calc(var(--game-sidebar-right)+var(--game-sidebar-width)+1rem)] top-1/2 -translate-y-1/2 z-30 flex-col gap-4">
         {sections.map((_, idx) => (
           <button
             key={idx}

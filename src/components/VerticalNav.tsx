@@ -27,7 +27,8 @@ const VerticalNav: React.FC<VerticalNavProps> = ({
   };
 
   return (
-    <div className="fixed left-6 xl:left-8 top-1/2 -translate-y-1/2 z-50 hidden lg:block">
+    <div className="fixed left-4 top-1/2 -translate-y-1/2 z-40 hidden lg:block pointer-events-none">
+      <div className="pointer-events-auto">
       {/* Suspension cables */}
       <div className="absolute -top-20 left-1/2 -translate-x-1/2 flex gap-3">
         <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-[var(--gold)] to-[rgba(201,168,76,0.4)]" />
@@ -78,7 +79,7 @@ const VerticalNav: React.FC<VerticalNavProps> = ({
           </div>
 
           {/* Navigation Items */}
-          <div className="p-2 flex flex-col gap-1">
+          <div className="p-2 flex flex-col gap-1 max-h-[42vh] overflow-y-auto custom-scrollbar">
             {navItems.map((item, idx) => (
               <motion.button
                 key={idx}
@@ -152,6 +153,7 @@ const VerticalNav: React.FC<VerticalNavProps> = ({
           </div>
         </div>
       </motion.nav>
+      </div>
     </div>
   );
 };

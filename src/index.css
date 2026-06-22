@@ -17,6 +17,16 @@
   --green-light: #4a8a42;
   --warm-gray: #8a8278;
   --line: rgba(201,168,76,0.25);
+
+  /* Layout zones for fixed nav + game sidebar */
+  --floating-nav-width: 200px;
+  --floating-nav-left: 1rem;
+  --content-nav-gap: 2.5rem;
+  --content-left-offset: calc(var(--floating-nav-left) + var(--floating-nav-width) + var(--content-nav-gap));
+  --game-sidebar-width: 320px;
+  --game-sidebar-right: 2rem;
+  --content-sidebar-gap: 1.5rem;
+  --content-right-offset: calc(var(--game-sidebar-right) + var(--game-sidebar-width) + var(--content-sidebar-gap));
 }
 
 html {
@@ -84,20 +94,18 @@ body::before {
 
   @media (min-width: 1024px) {
     .portfolio-inner {
-      max-width: min(1100px, calc(100vw - 232px - 380px));
-      margin-left: 232px;
-      margin-right: 380px;
-      padding-left: 0;
-      padding-right: 0;
+      max-width: min(1100px, calc(100vw - var(--content-left-offset) - var(--content-right-offset)));
+      margin-left: var(--content-left-offset);
+      margin-right: var(--content-right-offset);
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
     }
   }
 
-  /* Tighter margins on medium desktops where sidebars consume more space */
-  @media (min-width: 1024px) and (max-width: 1279px) {
+  @media (min-width: 1280px) {
     .portfolio-inner {
-      margin-left: 212px;
-      margin-right: 360px;
-      max-width: calc(100vw - 212px - 360px);
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 
@@ -108,6 +116,17 @@ body::before {
 
   .floating-nav-card {
     animation: nav-float 5s ease-in-out infinite;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 2px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
   }
 
   .section-header-row {

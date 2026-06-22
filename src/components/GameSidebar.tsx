@@ -16,7 +16,10 @@ const GameSidebar: React.FC<GameSidebarProps> = ({ totalPoints, currentSection }
     skills: { title: 'Skills', icon: Zap, color: 'var(--gold)' },
     projects: { title: 'Projects', icon: Award, color: 'var(--gold)' },
     experience: { title: 'Experience', icon: TrendingUp, color: 'var(--gold)' },
-    contact: { title: 'Contact', icon: Trophy, color: 'var(--gold)' }
+    path: { title: 'Path', icon: Star, color: 'var(--gold)' },
+    mind: { title: 'Mind', icon: Target, color: 'var(--gold)' },
+    blog: { title: 'Writings', icon: Zap, color: 'var(--gold)' },
+    contact: { title: 'Contact', icon: Trophy, color: 'var(--gold)' },
   };
 
   const currentDetails = sectionDetails[currentSection as keyof typeof sectionDetails] || sectionDetails.hero;

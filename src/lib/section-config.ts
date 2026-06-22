@@ -4,7 +4,10 @@ export const SECTION_NAV = [
   { id: 'skills', label: 'Skills', number: '03' },
   { id: 'projects', label: 'Projects', number: '04' },
   { id: 'experience', label: 'Experience', number: '05' },
-  { id: 'contact', label: 'Contact', number: '06' },
+  { id: 'path', label: 'Path', number: '06' },
+  { id: 'mind', label: 'Mind', number: '07' },
+  { id: 'blog', label: 'Writings', number: '08' },
+  { id: 'contact', label: 'Contact', number: '09' },
 ] as const;
 
 export function getSectionNumber(id: string): string {
