@@ -97,7 +97,7 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ isOpen, onClose, onEarnPo
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[var(--black)] border border-[var(--line)]"
+          className="relative w-full max-w-[95vw] md:max-w-4xl max-h-[90vh] overflow-y-auto bg-[var(--black)] border border-[var(--line)]"
           style={{
             clipPath: 'polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 0 100%)'
           }}

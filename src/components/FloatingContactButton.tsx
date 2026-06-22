@@ -15,7 +15,7 @@ const FloatingContactButton: React.FC<FloatingContactButtonProps> = ({ onClick }
       transition={{ delay: 2, type: 'spring', stiffness: 260, damping: 20 }}
       whileHover={{ scale: 1.1, y: -5 }}
       whileTap={{ scale: 0.9 }}
-      className="fixed bottom-8 right-8 md:right-[420px] z-50 w-14 h-14 bg-[var(--gold)] text-[var(--black)] flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-[var(--gold)]/30 transition-all group"
+      className="fixed bottom-6 right-6 md:bottom-8 md:right-[360px] z-50 w-12 h-12 md:w-14 md:h-14 bg-[var(--gold)] text-[var(--black)] flex items-center justify-center shadow-xl hover:shadow-2xl hover:shadow-[var(--gold)]/30 transition-all group"
       style={{
         clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))'
       }}

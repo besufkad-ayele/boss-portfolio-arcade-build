@@ -1,5 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import SectionHeader from './SectionHeader';
+import { getSectionNumber } from '@/lib/section-config';
 
 interface AboutSectionProps {
   onEarnPoints?: (points: number, message: string) => void;
@@ -31,28 +33,17 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
   };
 
   return (
-    <section className="relative w-full min-h-screen lg:h-screen flex items-center justify-center overflow-hidden bg-[rgba(255,255,255,0.015)] border-t border-b border-[var(--line)] py-20 lg:py-0">
-      {/* Section Header */}
-      <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }}
-        className="absolute top-20 md:top-24 left-6 md:left-12 lg:left-48 flex items-center gap-3 md:gap-6 z-20"
-      >
-        <span className="font-['DM_Mono'] text-[10px] md:text-[11px] text-[var(--gold)] tracking-[2px]">01 —</span>
-        <h2 className="font-['Bebas_Neue'] text-[clamp(32px,6vw,72px)] tracking-[2px] leading-none">
-          About
-        </h2>
-        <div className="w-16 md:w-48 h-[1px] bg-[var(--line)]" />
-      </motion.div>
+    <section className="relative w-full h-full flex flex-col overflow-hidden bg-[rgba(255,255,255,0.015)] border-t border-b border-[var(--line)]">
+      <div className="section-scroll-area">
+        <div className="portfolio-inner relative z-10 py-20 md:py-16 lg:py-10 pb-32 lg:pb-24">
+          <SectionHeader number={getSectionNumber('about')} title="About" />
 
-      {/* Content Grid */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 w-full max-w-[1100px] mx-auto px-6 md:px-12 lg:px-48 mt-20 lg:mt-0"
-      >
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 xl:gap-16"
+          >
         {/* Left Column - Text */}
         <motion.div variants={itemVariants} className="space-y-4 lg:space-y-5 flex flex-col justify-center">
           <p className="text-[14px] md:text-[15px] leading-[1.7] lg:leading-[1.8] text-[var(--warm-gray)]">
@@ -98,14 +89,16 @@ const AboutSection: React.FC<AboutSectionProps> = ({ onEarnPoints }) => {
             </motion.div>
           ))}
         </motion.div>
-      </motion.div>
+        </motion.div>
+        </div>
+      </div>
 
-      {/* Decorative Elements - Hidden on mobile */}
+      {/* Decorative Elements - Hidden when space is tight */}
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 0.05, scale: 1 }}
         transition={{ duration: 1.5, delay: 0.5 }}
-        className="hidden lg:block absolute bottom-16 right-32 font-['Bebas_Neue'] text-[180px] leading-none text-[var(--gold)] select-none pointer-events-none"
+        className="hidden 2xl:block absolute bottom-16 right-[400px] font-['Bebas_Neue'] text-[180px] leading-none text-[var(--gold)] select-none pointer-events-none"
       >
         A
       </motion.div>

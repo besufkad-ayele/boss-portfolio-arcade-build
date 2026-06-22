@@ -37,7 +37,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
   ];
 
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative w-full h-full flex items-center justify-center overflow-hidden overflow-y-auto">
       {/* Background Pattern */}
       <div 
         className="absolute inset-0 opacity-20"
@@ -47,13 +47,13 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
         }}
       />
 
-      <div className="relative z-10 max-w-[800px] mx-auto text-center px-12">
+      <div className="portfolio-inner relative z-10 text-center py-24 lg:py-0">
         {/* Headline */}
         <motion.h2
           initial={{ opacity: 0, y: 50, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="font-['Bebas_Neue'] text-[clamp(56px,9vw,120px)] leading-[0.9] tracking-[-1px] mb-8"
+          className="font-['Bebas_Neue'] text-[clamp(40px,8vw,120px)] leading-[0.9] tracking-[-1px] mb-6 md:mb-8"
         >
           Let's Build
           <br />
@@ -73,7 +73,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-[16px] text-[var(--warm-gray)] leading-[1.8] mb-14 max-w-[500px] mx-auto"
+          className="text-[14px] md:text-[16px] text-[var(--warm-gray)] leading-[1.8] mb-10 md:mb-14 max-w-[500px] mx-auto"
         >
           Open to senior roles, impactful freelance projects, and collaborations across Africa and globally. 
           Let's create something that scales.
@@ -84,7 +84,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex justify-center gap-8 mb-14 flex-wrap"
+          className="flex justify-center gap-4 sm:gap-6 md:gap-8 mb-10 md:mb-14 flex-wrap"
         >
           {contacts.map((contact, idx) => (
             <motion.a
@@ -123,7 +123,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
           transition={{ duration: 0.8, delay: 0.6 }}
           whileHover={{ y: -3, scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="bg-[var(--gold)] text-[var(--black)] py-4 px-12 font-['Outfit'] text-[13px] font-semibold tracking-[2px] uppercase transition-all hover:bg-[var(--gold-light)] hover:shadow-xl hover:shadow-[var(--gold)]/30"
+          className="bg-[var(--gold)] text-[var(--black)] py-3 md:py-4 px-8 md:px-12 font-['Outfit'] text-[12px] md:text-[13px] font-semibold tracking-[2px] uppercase transition-all hover:bg-[var(--gold-light)] hover:shadow-xl hover:shadow-[var(--gold)]/30 w-full sm:w-auto"
           style={{
             clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))'
           }}
@@ -136,7 +136,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-20 pt-8 border-t border-[var(--line)] flex justify-between items-center text-[11px] text-[var(--warm-gray)] font-['DM_Mono'] tracking-[1px]"
+          className="mt-16 md:mt-20 pt-6 md:pt-8 border-t border-[var(--line)] flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4 text-[10px] md:text-[11px] text-[var(--warm-gray)] font-['DM_Mono'] tracking-[1px]"
         >
           <span>© 2026 Besufkad Ayele</span>
           <span>Addis Ababa, Ethiopia</span>
@@ -155,7 +155,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 0.05, scale: 1 }}
         transition={{ duration: 2, delay: 0.5 }}
-        className="absolute top-20 left-20 font-['Bebas_Neue'] text-[250px] leading-none text-[var(--gold)] select-none pointer-events-none"
+        className="hidden lg:block absolute top-20 left-20 font-['Bebas_Neue'] text-[250px] leading-none text-[var(--gold)] select-none pointer-events-none"
       >
         C
       </motion.div>
@@ -164,7 +164,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ onEarnPoints }) => {
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 0.05, x: 0 }}
         transition={{ duration: 2, delay: 0.7 }}
-        className="absolute bottom-20 right-20 font-['Bebas_Neue'] text-[180px] leading-none text-[var(--gold)] select-none pointer-events-none"
+        className="hidden lg:block absolute bottom-20 right-20 font-['Bebas_Neue'] text-[180px] leading-none text-[var(--gold)] select-none pointer-events-none"
       >
         06
       </motion.div>

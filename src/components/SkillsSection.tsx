@@ -1,5 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import SectionHeader from './SectionHeader';
+import { getSectionNumber } from '@/lib/section-config';
 
 interface SkillsSectionProps {
   onEarnPoints?: (points: number, message: string) => void;
@@ -40,27 +42,18 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ onEarnPoints }) => {
   ];
 
   return (
-    <section className="relative w-full h-screen overflow-y-auto overflow-x-hidden bg-[var(--black)] py-20 md:py-24">
-      {/* Section Header */}
-      <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }}
-        className="px-6 md:px-12 lg:pl-48 flex items-center gap-3 md:gap-6 mb-12 sticky top-0 bg-[var(--black)] pt-4 pb-4 z-20"
-      >
-        <span className="font-['DM_Mono'] text-[10px] md:text-[11px] text-[var(--gold)] tracking-[2px]">02 —</span>
-        <h2 className="font-['Bebas_Neue'] text-[clamp(32px,6vw,72px)] tracking-[2px] leading-none">
-          Skills
-        </h2>
-        <div className="w-16 md:w-48 h-[1px] bg-[var(--line)]" />
-      </motion.div>
+    <section className="relative w-full h-full flex flex-col overflow-hidden bg-[var(--black)]">
+      <div className="section-header-bar">
+        <SectionHeader number={getSectionNumber('skills')} title="Skills" />
+      </div>
 
+      <div className="section-scroll-area">
       {/* Skills Grid */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3 }}
-        className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2px] bg-[var(--line)] border border-[var(--line)] w-full max-w-[1100px] mx-auto px-6 md:px-12 lg:px-0 mb-20"
+        className="portfolio-inner relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2px] bg-[var(--line)] border border-[var(--line)] mb-20 pt-6 pb-8"
       >
         {skills.map((skill, idx) => (
           <motion.div
@@ -103,6 +96,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ onEarnPoints }) => {
           </motion.div>
         ))}
       </motion.div>
+      </div>
 
       {/* Decorative Background - Hidden on mobile */}
       <motion.div

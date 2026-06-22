@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Download } from 'lucide-react';
+import { SECTION_NAV } from '@/lib/section-config';
 
 interface MobileNavProps {
   sections: string[];
@@ -17,14 +18,7 @@ const MobileNav: React.FC<MobileNavProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const navItems = [
-    { label: 'Home', icon: '01' },
-    { label: 'About', icon: '02' },
-    { label: 'Skills', icon: '03' },
-    { label: 'Projects', icon: '04' },
-    { label: 'Experience', icon: '05' },
-    { label: 'Contact', icon: '06' },
-  ];
+  const navItems = SECTION_NAV;
 
   const handleNavigate = (index: number) => {
     onNavigate(index);
@@ -49,9 +43,11 @@ const MobileNav: React.FC<MobileNavProps> = ({
         className="fixed top-0 left-0 right-0 z-50 bg-[var(--black)] border-b border-[var(--line)] lg:hidden"
       >
         <div className="flex items-center justify-between px-6 py-4">
-          {/* Logo */}
-          <div className="font-['Bebas_Neue'] text-[24px] text-[var(--gold)] tracking-[3px]">
-            BA
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-[var(--gold)] animate-pulse" />
+            <span className="font-['DM_Mono'] text-[10px] text-[var(--gold)] tracking-[3px] uppercase">
+              Nav
+            </span>
           </div>
 
           {/* Progress */}
@@ -117,11 +113,14 @@ const MobileNav: React.FC<MobileNavProps> = ({
 
               {/* Logo */}
               <div className="p-6 border-b border-[var(--line)]">
-                <div className="font-['Bebas_Neue'] text-[28px] text-[var(--gold)] tracking-[4px]">
-                  BA
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[var(--gold)] animate-pulse" />
+                  <span className="font-['DM_Mono'] text-[11px] text-[var(--gold)] tracking-[3px] uppercase">
+                    Navigation
+                  </span>
                 </div>
                 <div className="font-['DM_Mono'] text-[10px] text-[var(--warm-gray)] tracking-[2px] mt-1">
-                  Portfolio
+                  Portfolio · v2.0
                 </div>
               </div>
 
@@ -136,20 +135,20 @@ const MobileNav: React.FC<MobileNavProps> = ({
                     transition={{ delay: idx * 0.05 }}
                     className={`w-full flex items-center gap-4 py-4 px-4 transition-all ${
                       idx === activeSection
-                        ? 'bg-[var(--gold)] bg-opacity-10 border-l-2 border-[var(--gold)]'
+                        ? 'bg-[var(--gold)] border-l-2 border-[var(--gold)]'
                         : 'border-l-2 border-transparent hover:border-[var(--warm-gray)]'
                     }`}
                   >
                     <span
                       className={`font-['DM_Mono'] text-[11px] tracking-[2px] ${
-                        idx === activeSection ? 'text-[var(--gold)]' : 'text-[var(--warm-gray)]'
+                        idx === activeSection ? 'text-[var(--black)]' : 'text-[var(--warm-gray)]'
                       }`}
                     >
-                      {item.icon}
+                      {item.number}
                     </span>
                     <span
                       className={`font-['Outfit'] text-[14px] font-medium tracking-[1px] uppercase ${
-                        idx === activeSection ? 'text-[var(--gold)]' : 'text-[var(--off-white)]'
+                        idx === activeSection ? 'text-[var(--black)] font-semibold' : 'text-[var(--off-white)]'
                       }`}
                     >
                       {item.label}

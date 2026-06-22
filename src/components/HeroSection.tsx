@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Github, Linkedin, Mail, Phone } from 'lucide-react';
+import { getSectionNumber } from '@/lib/section-config';
 
 interface HeroSectionProps {
   onEarnPoints?: (points: number, message: string) => void;
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -22,7 +21,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
       const y = e.clientY / window.innerHeight - 0.5;
       mouseX.set(x);
       mouseY.set(y);
-      setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -36,9 +34,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
   };
 
   return (
-    <section className="relative w-full h-screen flex items-end overflow-hidden px-6 lg:px-0">
+    <section className="relative w-full h-full overflow-y-auto overflow-x-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-[var(--black)]">
+      <div className="absolute inset-0 bg-[var(--black)] pointer-events-none">
         <div 
           className="absolute inset-0"
           style={{
@@ -58,65 +56,26 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
             maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%)'
           }}
         />
-      </div>
 
-      {/* Large Number Background - Hidden on mobile */}
-      <motion.div
-        initial={{ opacity: 0, x: 100 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1.5, delay: 0.5 }}
-        className="hidden lg:block absolute top-1/2 right-12 -translate-y-1/2 font-['Bebas_Neue'] text-[clamp(200px,25vw,380px)] leading-none tracking-[-10px] select-none"
-        style={{
-          color: 'transparent',
-          WebkitTextStroke: '1px rgba(201,168,76,0.08)'
-        }}
-      >
-        02
-      </motion.div>
-
-      {/* Profile Image with 3D effect - Responsive */}
-      <motion.div
-        style={{
-          rotateX,
-          rotateY,
-          transformStyle: 'preserve-3d',
-        }}
-        className="hidden md:block absolute top-1/4 right-[10%] lg:right-[20%] w-[250px] h-[320px] md:w-[300px] md:h-[380px] lg:w-[400px] lg:h-[500px] z-10"
-      >
+        {/* Large Number Background */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8, z: -100 }}
-          animate={{ opacity: 1, scale: 1, z: 0 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="relative w-full h-full"
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.5, delay: 0.5 }}
+          className="hidden xl:block absolute top-1/2 right-[28%] -translate-y-1/2 font-['Bebas_Neue'] text-[clamp(160px,20vw,320px)] leading-none tracking-[-10px] select-none"
           style={{
-            transform: 'translateZ(50px)',
+            color: 'transparent',
+            WebkitTextStroke: '1px rgba(201,168,76,0.08)'
           }}
         >
-          <img
-            src="/portfolio_image.png"
-            alt="Besufkad Ayele"
-            className="w-full h-full object-cover"
-            style={{
-              clipPath: 'polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%)',
-              filter: 'grayscale(20%) contrast(110%)',
-            }}
-          />
-          
-          {/* Gold border accent */}
-          <div 
-            className="absolute inset-0 border-2 border-[var(--gold)] opacity-40"
-            style={{
-              clipPath: 'polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%)',
-            }}
-          />
-          
-          {/* Corner accent */}
-          <div className="absolute top-0 right-0 w-0 h-0 border-l-[40px] border-l-transparent border-t-[40px] border-t-[var(--gold)] opacity-60" />
+          {getSectionNumber('hero')}
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Content */}
-      <div className="relative z-20 w-full max-w-[900px] pb-16 lg:pb-20 lg:pl-48 mt-20 lg:mt-0">
+      <div className="portfolio-inner relative z-20 w-full min-h-full flex flex-col justify-center py-24 md:py-20 lg:py-12 pb-28 lg:pb-16">
+        <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_280px] 2xl:grid-cols-[minmax(0,1fr)_320px] gap-8 xl:gap-10 items-center">
+          <div className="min-w-0">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -133,7 +92,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="font-['Bebas_Neue'] text-[clamp(48px,10vw,160px)] leading-[0.9] tracking-[-2px] mb-6 lg:mb-8"
+          className="font-['Bebas_Neue'] text-[clamp(40px,8vw,120px)] xl:text-[clamp(48px,6vw,140px)] leading-[0.9] tracking-[-2px] mb-4 md:mb-6 lg:mb-8"
         >
           <span className="block">Besufkad</span>
           <span 
@@ -151,7 +110,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="max-w-[520px] text-[13px] lg:text-[15px] leading-[1.8] text-[var(--warm-gray)] mb-8 lg:mb-12"
+          className="max-w-[520px] text-[13px] lg:text-[15px] leading-[1.8] text-[var(--warm-gray)] mb-6 md:mb-8 lg:mb-10"
         >
           Full-Stack & Flutter Engineer based in Addis Ababa — architecting scalable systems across mobile, web, and cloud. 
           Product designer with a passion for creating intuitive user experiences. 2+ years delivering production-grade platforms for thousands of users.
@@ -162,7 +121,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="grid grid-cols-2 md:flex gap-6 lg:gap-12 mb-10 lg:mb-14"
+          className="grid grid-cols-2 gap-4 sm:gap-6 xl:grid-cols-4 xl:gap-8 mb-8 lg:mb-10"
         >
           {[
             { num: '10K+', label: 'Platform Users' },
@@ -175,7 +134,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
               whileHover={{ y: -5, scale: 1.05 }}
               transition={{ type: 'spring', stiffness: 400, damping: 10 }}
             >
-              <div className="font-['Bebas_Neue'] text-[36px] lg:text-[48px] leading-none text-[var(--gold)]">
+              <div className="font-['Bebas_Neue'] text-[28px] sm:text-[36px] lg:text-[42px] xl:text-[48px] leading-none text-[var(--gold)]">
                 {stat.num}
               </div>
               <div className="font-['Outfit'] text-[9px] lg:text-[11px] tracking-[1px] lg:tracking-[2px] uppercase text-[var(--warm-gray)] font-medium mt-1">
@@ -190,7 +149,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="flex flex-col sm:flex-row gap-4 lg:gap-5 items-stretch sm:items-center mb-8 lg:mb-0"
+          className="flex flex-col sm:flex-row gap-3 lg:gap-4 items-stretch sm:items-center mb-6 lg:mb-8"
         >
           <motion.a
             href="#projects"
@@ -224,7 +183,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
-          className="hidden sm:flex gap-4 lg:gap-6 lg:mt-10"
+          className="flex gap-3 lg:gap-4"
         >
           {[
             { icon: Mail, href: 'mailto:ayebesufkad@gmail.com', label: 'Email' },
@@ -249,6 +208,38 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onEarnPoints }) => {
             </motion.a>
           ))}
         </motion.div>
+          </div>
+
+          {/* Profile Image — in-flow, only on wide screens */}
+          <motion.div
+            style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+            className="hidden xl:block relative w-full max-w-[280px] 2xl:max-w-[320px] mx-auto xl:mx-0 xl:ml-auto aspect-[4/5] shrink-0"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.8 }}
+              className="relative w-full h-full"
+            >
+              <img
+                src="/portfolio_image.png"
+                alt="Besufkad Ayele"
+                className="w-full h-full object-cover object-top"
+                style={{
+                  clipPath: 'polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%)',
+                  filter: 'grayscale(20%) contrast(110%)',
+                }}
+              />
+              <div 
+                className="absolute inset-0 border-2 border-[var(--gold)] opacity-40 pointer-events-none"
+                style={{
+                  clipPath: 'polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%)',
+                }}
+              />
+              <div className="absolute top-0 right-0 w-0 h-0 border-l-[32px] border-l-transparent border-t-[32px] border-t-[var(--gold)] opacity-60" />
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import HeroSection from '../components/HeroSection';
 import AboutSection from '../components/AboutSection';
@@ -15,6 +16,7 @@ import ContactDialog from '../components/ContactDialog';
 import FloatingContactButton from '../components/FloatingContactButton';
 
 const Index = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [activeSection, setActiveSection] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [totalPoints, setTotalPoints] = useState(0);
@@ -33,6 +35,17 @@ const Index = () => {
   ];
 
   // Welcome bonus
+  useEffect(() => {
+    const sectionParam = searchParams.get('section');
+    if (sectionParam) {
+      const idx = sections.findIndex((s) => s.id === sectionParam);
+      if (idx >= 0) {
+        setActiveSection(idx);
+        setSearchParams({}, { replace: true });
+      }
+    }
+  }, [searchParams, setSearchParams]);
+
   useEffect(() => {
     if (!welcomeShownRef.current) {
       welcomeShownRef.current = true;
@@ -128,7 +141,7 @@ const Index = () => {
             duration: 0.8,
             ease: [0.22, 1, 0.36, 1]
           }}
-          className="w-full h-screen"
+          className="w-full h-full min-h-0 overflow-hidden"
           style={{
             transformStyle: 'preserve-3d',
             perspective: '1000px'
@@ -138,8 +151,8 @@ const Index = () => {
         </motion.div>
       </AnimatePresence>
 
-      {/* Section Indicators - Hidden on mobile */}
-      <div className="hidden lg:flex fixed right-12 top-1/2 -translate-y-1/2 z-40 flex-col gap-4">
+      {/* Section Indicators - Hidden on mobile, offset from game sidebar */}
+      <div className="hidden lg:flex fixed right-6 xl:right-[360px] top-1/2 -translate-y-1/2 z-40 flex-col gap-4">
         {sections.map((_, idx) => (
           <button
             key={idx}
@@ -154,17 +167,23 @@ const Index = () => {
         ))}
       </div>
 
-      {/* Navigation Hint - Hidden on mobile */}
-      <div className="hidden lg:flex fixed bottom-8 left-1/2 -translate-x-1/2 z-40 font-['DM_Mono'] text-[10px] text-[var(--warm-gray)] tracking-[3px] uppercase items-center gap-3">
+      {/* Navigation Hint - only on hero to avoid overlapping content */}
+      {activeSection === 0 && (
+      <div className="hidden lg:flex fixed bottom-8 left-1/2 -translate-x-1/2 z-30 font-['DM_Mono'] text-[10px] text-[var(--warm-gray)] tracking-[3px] uppercase items-center gap-3 pointer-events-none">
         <span>Use navigation to explore</span>
         <div className="w-[1px] h-12 bg-gradient-to-b from-[var(--gold)] to-transparent animate-pulse" />
       </div>
+      )}
 
-      {/* Floating Contact Button */}
-      <FloatingContactButton onClick={() => {
-        setIsContactDialogOpen(true);
-        showXPNotification(100, 'Opening quick contact!');
-      }} />
+      {/* Floating Contact Button - hidden on mobile and about page (overlaps cards) */}
+      <div className="hidden md:block">
+        {activeSection !== 1 && (
+        <FloatingContactButton onClick={() => {
+          setIsContactDialogOpen(true);
+          showXPNotification(100, 'Opening quick contact!');
+        }} />
+        )}
+      </div>
 
       {/* Global Contact Dialog */}
       <ContactDialog 
